@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --off-white: #FEF2F2;
+  --dull-pink: #f6dddd;
+  --light-pink: #e4c2c1;
+  --dark-pink: #b6666f;
+  --pink: #f53163;
+  --brownish-yellow: #d1a080;
+  --dark-yellow: #db844b;
+  --brown: #440313;
+  background-color: var(--off-white);
+}
+h1{
+  font-size: 32px;
+  font-weight: 500;
+}
+h2{
+  font-size: 24px;
+  font-weight: 500;
+}
+h3{
+  font-size: 18.72px;
+  font-weight: 500;
+}
+h4{
+  font-size: 16px;
+  font-weight: 500;
+}
+h5{
+  font-size: 13.28px;
+  font-weight: 500;
+}
+h6{
+  font-size: 10.72px;
+  font-weight: 500;
+}
+
+
