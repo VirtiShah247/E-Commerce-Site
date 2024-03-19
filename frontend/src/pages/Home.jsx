@@ -7,7 +7,7 @@ export const Home = () => {
     let authToken = sessionStorage.getItem('Auth Token');
 
     if (authToken) {
-      navigate('/');
+      navigate("/");
     }
     else{
       navigate('/login');

@@ -3,18 +3,21 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../firebase/config";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPhoneNumber, RecaptchaVerifier, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingIcons from 'react-loading-icons';
 import { FcGoogle } from "react-icons/fc";
 import OtpInput from "otp-input-react";
+import { useInputChange } from "../hooks/useInputChange";
+
 
 const Form = ({ componentName, formLinkTitle }) => {
   const [formDetails, setFormDetails] = useState({
     'phoneNumberOrEmail': '',
     'password': ''
   });
+  const handleChange = useInputChange(formDetails, setFormDetails);
   const [loading, setLoading] = useState(false);
   const [otp, setOtp] = useState("");
   const [showOTP, setShowOTP] = useState(false);
@@ -35,6 +38,7 @@ const Form = ({ componentName, formLinkTitle }) => {
       );
     }
   }
+
   const onOTPVerify = () => {
     setLoading("true");
     window.confirmationResult
@@ -54,7 +58,6 @@ const Form = ({ componentName, formLinkTitle }) => {
         }
       });
   }
-
   const phonePasswordAuthentication = () => {
     console.log("Phone no");
     onCaptchVerify();
@@ -127,13 +130,13 @@ const Form = ({ componentName, formLinkTitle }) => {
     }
   }
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormDetails({
-      ...formDetails,
-      [name]: value
-    })
-  }
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setFormDetails({
+  //     ...formDetails,
+  //     [name]: value
+  //   })
+  // }
   const handleFormSubmit = (event) => {
     event.preventDefault();
     setLoading("true");
@@ -199,7 +202,7 @@ const Form = ({ componentName, formLinkTitle }) => {
               id="otp"
             ></OtpInput>
             <button
-              onClick={onOTPVerify}
+              onClick={()=>onOTPVerify(otp, setLoading, navigate)}
               className="p-3  h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center"
             >
               {loading ? (
@@ -220,7 +223,7 @@ const Form = ({ componentName, formLinkTitle }) => {
             <div className="relative">
               <input type="text" required
                 name="phoneNumberOrEmail" value={formDetails.phoneNumberOrEmail}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleChange(e.target)}
                 className="peer bg-transparent outline outline-0 focus:outline-0 disabled:bg-pink 
                   disabled:border-0 transition-all placeholder-shown:border-2 
                   placeholder-shown:border-dark-yellow border-2 focus:border-2 border-t-transparent 
@@ -248,7 +251,7 @@ const Form = ({ componentName, formLinkTitle }) => {
             <div className="relative">
               <input type="password" required
                 name="password" value={formDetails.password}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e) => handleChange(e.target)}
                 className="peer bg-transparent outline outline-0 focus:outline-0 disabled:bg-pink 
                   disabled:border-0 transition-all placeholder-shown:border-2 
                   placeholder-shown:border-dark-yellow border-2 focus:border-2 border-t-transparent 
