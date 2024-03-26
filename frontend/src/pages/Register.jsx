@@ -1,11 +1,14 @@
 // import React from 'react'
 
 import LoginRegisterComponent from "../components/LoginRegisterComponent"
+import { useAuth } from "../hooks/useAuth";
 
 const Register = () => {
+  const {setPageName} = useAuth();
+    setPageName("Register");
   return (
     <>
-      <LoginRegisterComponent title = "Welcome to EFashionia. Please Register To a New Account." componentName = "Register" formLinkTitle = "Already Registered? Login"/>
+      <LoginRegisterComponent />
     </>
   )
 }

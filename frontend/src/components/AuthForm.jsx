@@ -1,27 +1,34 @@
 // import React from 'react'
-import PropTypes from "prop-types";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { auth, provider } from "../firebase/config";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingIcons from 'react-loading-icons';
 import { FcGoogle } from "react-icons/fc";
-import OtpInput from "otp-input-react";
 import { useInputChange } from "../hooks/useInputChange";
+// import { Input } from "../utils/Input";
+// import { OTPForm } from "./OTPForm";
+import OtpInput from "otp-input-react";
+// import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { OTPVerify } from "./OTPVerify";
 
 
-const Form = ({ componentName, formLinkTitle }) => {
-  const [formDetails, setFormDetails] = useState({
-    'phoneNumberOrEmail': '',
-    'password': ''
-  });
-  const handleChange = useInputChange(formDetails, setFormDetails);
-  const [loading, setLoading] = useState(false);
-  const [otp, setOtp] = useState("");
-  const [showOTP, setShowOTP] = useState(false);
-  const navigate = useNavigate();
+const AuthForm = () => {
+
+  const { formDetails, loading, setLoading, otp, setOtp, showOTP, setShowOTP, navigate, pageName } = useAuth();
+  const handleChange = useInputChange();
+  console.log("page name: ", pageName);
+  const formLinkName = pageName === "Login" ? "New User? Register" : "Already Registered? Login";
+  // const [formDetails, setFormDetails] = useState({
+  //   'phoneNumberOrEmail': "",
+  //   'password': ""
+  // })
+  // const [loading, setLoading] = useState(false);
+  // const [otp, setOtp] = useState("");
+  // const [showOTP, setShowOTP] = useState(false);
+  // const navigate = useNavigate();
 
   const onCaptchVerify = () => {
     if (!window.recaptchaVerifier) {
@@ -39,25 +46,25 @@ const Form = ({ componentName, formLinkTitle }) => {
     }
   }
 
-  const onOTPVerify = () => {
-    setLoading("true");
-    window.confirmationResult
-      .confirm(otp)
-      .then(async (response) => {
-        console.log("otp verify response: ", response);
-        toast.success("OTP Verified. Register successful");
-        navigate('/');
-        setLoading("false");
-        sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.code === 'auth/invalid-verification-code') {
-          toast.error('Invalid OTP');
-          setLoading("false");
-        }
-      });
-  }
+  // const onOTPVerify = () => {
+  //   setLoading("true");
+  //   window.confirmationResult
+  //     .confirm(otp)
+  //     .then(async (response) => {
+  //       console.log("otp verify response: ", response);
+  //       toast.success("OTP Verified. Register successful");
+  //       navigate('/');
+  //       setLoading("false");
+  //       sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       if (error.code === 'auth/invalid-verification-code') {
+  //         toast.error('Invalid OTP');
+  //         setLoading("false");
+  //       }
+  //     });
+  // }
   const phonePasswordAuthentication = () => {
     console.log("Phone no");
     onCaptchVerify();
@@ -87,7 +94,7 @@ const Form = ({ componentName, formLinkTitle }) => {
 
   const emailPasswordAuthentication = () => {
     console.log("email");
-    if (componentName === 'Register') {
+    if (pageName === 'Register') {
       createUserWithEmailAndPassword(auth, formDetails.phoneNumberOrEmail, formDetails.password)
         .then((response) => {
           console.log("Resp: ", response);
@@ -104,7 +111,7 @@ const Form = ({ componentName, formLinkTitle }) => {
           }
         })
     }
-    else if (componentName === "Login") {
+    else if (pageName === "Login") {
       signInWithEmailAndPassword(auth, formDetails.phoneNumberOrEmail, formDetails.password)
         .then((response) => {
           toast.success("Login successful");
@@ -202,8 +209,8 @@ const Form = ({ componentName, formLinkTitle }) => {
               id="otp"
             ></OtpInput>
             <button
-              onClick={()=>onOTPVerify(otp, setLoading, navigate)}
-              className="p-3  h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center"
+              onClick={() => OTPVerify(pageName)}
+              className="p-3 h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center"
             >
               {loading ? (
                 <LoadingIcons.Oval />) : "Verify OTP"
@@ -220,6 +227,16 @@ const Form = ({ componentName, formLinkTitle }) => {
             <div className="justify-self-center">
               OR
             </div>
+            {/* <Input type="text" required
+              name="phoneNumberOrEmail" value={formDetails.phoneNumberOrEmail}
+              onChange={(e) => handleChange(e.target)}>
+              {Children}
+            </Input >
+            <Input type="password" required
+              name="password" value={formDetails.password}
+              onChange={(e) => handleChange(e.target)}>
+              {Children}
+            </Input > */}
             <div className="relative">
               <input type="text" required
                 name="phoneNumberOrEmail" value={formDetails.phoneNumberOrEmail}
@@ -270,16 +287,17 @@ const Form = ({ componentName, formLinkTitle }) => {
                     after:rounded-tr-md after:border-t-2 peer-focus:after:border-t-2 after:border-r 
                     peer-focus:after:border-r-2 after:pointer-events-none after:transition-all 
                     peer-disabled:after:border-transparent peer-placeholder-shown:leading-[5] 
-                      peer-focus:text-brown text-sm 
+                    peer-focus:text-brown text-sm 
                     peer-focus:before:!border-dark-yellow after:border-1 after:border-brown 
                     peer-focus:after:!border-dark-yellow  before:border-brown">
                 Input password
               </label>
             </div>
-            <Link to={componentName === 'Login' ? "/register" : "/login"} className="text-dark-pink underline">{formLinkTitle}</Link>
+            <Link to={pageName === 'Login' ? "/register" : "/login"} className="text-dark-pink underline">{formLinkName}</Link>
             <button id="registerButton" className="p-3 w-[200px] h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center justify-self-center"
-              onClick={(e) => handleFormSubmit(e)}
-            >{loading === "true" ? <LoadingIcons.Oval /> : componentName}</button>
+              onClick={(e) => handleFormSubmit(e)}>
+              {loading === "true" ? <LoadingIcons.Oval /> : pageName}
+            </button>
           </form>
         </>)
       }
@@ -290,9 +308,5 @@ const Form = ({ componentName, formLinkTitle }) => {
   )
 }
 
-Form.propTypes = {
-  componentName: PropTypes.node.isRequired,
-  formLinkTitle: PropTypes.node.isRequired,
-};
 
-export default Form
+export default AuthForm

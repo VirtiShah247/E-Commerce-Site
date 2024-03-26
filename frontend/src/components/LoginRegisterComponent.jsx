@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
-import Form from "./Form";
 import cartImage from "../assets/login-page-cart-image.png";
+import AuthForm from "./AuthForm";
+import { useAuth } from "../hooks/useAuth";
 
 
-const LoginRegisterComponent = ({ title, componentName, formLinkTitle }) => {
+const LoginRegisterComponent = () => {
+    const {pageName} = useAuth();
+    const pageHeading = pageName === "Login" ? "Welcome Back. Please Log In To Your Account." : "Welcome to EFashionia. Please Register To a New Account.";
     return (
         <>
             <div className={"bg-dull-pink grid justify-center content-center md:mx-[150px] md:my-[20px] rounded-md p-5 text-brown shadow-xl shadow-dull-pink-500/50"}>
@@ -12,8 +15,8 @@ const LoginRegisterComponent = ({ title, componentName, formLinkTitle }) => {
                         <img src={cartImage} alt="Shopping Cart" className="md:w-full relative -left-5 h-[150px] w-[300px] md:h-full animate-[1s_ease-out_0s_1_slideInFromLeft]"/>
                     </div>
                     <div className="rightContent grid justify-center content-center w-full px-0  md:px-[79px]">
-                        <h2>{title}</h2>
-                        <Form componentName = {componentName} formLinkTitle = {formLinkTitle}/>
+                        <h2>{pageHeading}</h2>
+                        <AuthForm></AuthForm>
                     </div>
 
                 </div>

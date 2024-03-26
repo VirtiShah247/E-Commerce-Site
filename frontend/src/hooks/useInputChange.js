@@ -1,8 +1,10 @@
-export const useInputChange = (details, setDetails) => {
-    
+import { useAuth } from "./useAuth";
+
+export const useInputChange = () => {
+    const { formDetails, setFormDetails } = useAuth();
     const handleChange = ({name, value}) => {
-        setDetails({
-            ...details,
+        setFormDetails({
+            ...formDetails,
             [name]: value
         })
     }

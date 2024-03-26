@@ -1,9 +1,13 @@
 import LoginRegisterComponent from "../components/LoginRegisterComponent"
+import { useAuth } from "../hooks/useAuth"
 
 const Login = () => {
+    const {pageName, setPageName} = useAuth();
+    console.log("page name ...........",pageName);
+    setPageName("Login");
     return (
         <>
-           <LoginRegisterComponent title = "Welcome Back. Please Log In To Your Account." componentName = "Login" formLinkTitle = "New User? Register"/>
+           <LoginRegisterComponent />
         </>
     )
 }
