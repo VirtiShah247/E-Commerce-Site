@@ -1,5 +1,4 @@
 // import React from 'react'
-import { Link } from "react-router-dom";
 import { auth, provider } from "../firebase/config";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithPhoneNumber, RecaptchaVerifier } from 'firebase/auth';
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,20 +6,25 @@ import 'react-toastify/dist/ReactToastify.css';
 import LoadingIcons from 'react-loading-icons';
 import { FcGoogle } from "react-icons/fc";
 import { useInputChange } from "../hooks/useInputChange";
-// import { Input } from "../utils/Input";
+import { Input } from "../utils/Input";
 // import { OTPForm } from "./OTPForm";
 import OtpInput from "otp-input-react";
 // import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { OTPVerify } from "./OTPVerify";
+import PropTypes from "prop-types";
+import { isOnlyDigit } from "../helperFunctions/isOnlyDigit";
+import { Button } from "../utils/Button";
+import { useRef } from "react";
+import { Form } from "../utils/Form";
+import { Links } from "../utils/Links";
+// import { captchaVerify } from "../helperFunctions/captchaVerify";
 
-
-const AuthForm = () => {
-
+const AuthForm = ({ children }) => {
   const { formDetails, loading, setLoading, otp, setOtp, showOTP, setShowOTP, navigate, pageName } = useAuth();
   const handleChange = useInputChange();
-  console.log("page name: ", pageName);
   const formLinkName = pageName === "Login" ? "New User? Register" : "Already Registered? Login";
+  const ref = useRef(null);
   // const [formDetails, setFormDetails] = useState({
   //   'phoneNumberOrEmail': "",
   //   'password': ""
@@ -101,7 +105,7 @@ const AuthForm = () => {
           toast.success("Register successful");
           navigate('/');
           setLoading("false");
-          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+          sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
         })
         .catch((error) => {
           console.log("Register Error: ", error);
@@ -150,14 +154,7 @@ const AuthForm = () => {
     console.log(formDetails);
 
     // firebase authentication
-    const regexOnlyDigit = /^\d+\.?\d*$/;
-    if (regexOnlyDigit.test(formDetails.phoneNumberOrEmail)) {
-      phonePasswordAuthentication();
-    }
-    else {
-      emailPasswordAuthentication();
-    }
-
+    isOnlyDigit ? phonePasswordAuthentication() : emailPasswordAuthentication();
   }
 
   const handleGoogleSignIn = () => {
@@ -191,7 +188,7 @@ const AuthForm = () => {
     <>
       {
         showOTP ? (<>
-          <form className="grid gap-6 mt-[50px] justify-center">
+          <Form size={"md"}>
             <label
               htmlFor="otp"
               className="font-bold text-xl text-center"
@@ -208,105 +205,53 @@ const AuthForm = () => {
               className="opt-container"
               id="otp"
             ></OtpInput>
-            <button
+            <Button
               onClick={() => OTPVerify(pageName)}
-              className="p-3 h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center"
-            >
+              color={"darkYellowButton"} size={"md"} ref={ref}>
               {loading ? (
                 <LoadingIcons.Oval />) : "Verify OTP"
               }
-            </button>
-          </form>
+            </Button>
+          </Form>
 
         </>) : (<>
-          <form className="grid gap-6 mt-[50px] justify-center">
+          <Form ref={ref} size={"md"}>
             <center>
-              <button className="mt-[10px] bg-white py-1.5 px-12 flex justify-center content-center gap-3"
-                onClick={handleGoogleSignIn}>{<FcGoogle size="30px" />}<span>Sign in with google</span></button>
+              {/* <button className="mt-[10px] bg-white py-1.5 px-12 flex justify-center content-center gap-3"
+                onClick={handleGoogleSignIn}>
+                  {<FcGoogle size="30px" />}<span>Sign in with google</span>
+              </button> */}
+              <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-white text-brown flex gap-3">
+                {<FcGoogle size="30px" />}<span>Sign in with google</span>
+              </Button>
             </center>
             <div className="justify-self-center">
               OR
             </div>
-            {/* <Input type="text" required
+            <Input type="text" required
               name="phoneNumberOrEmail" value={formDetails.phoneNumberOrEmail}
-              onChange={(e) => handleChange(e.target)}>
-              {Children}
-            </Input >
+              onChange={(e) => handleChange(e.target)} placeholder=" " labelName="Input phone number or email id">{children}</Input>
             <Input type="password" required
               name="password" value={formDetails.password}
-              onChange={(e) => handleChange(e.target)}>
-              {Children}
-            </Input > */}
-            <div className="relative">
-              <input type="text" required
-                name="phoneNumberOrEmail" value={formDetails.phoneNumberOrEmail}
-                onChange={(e) => handleChange(e.target)}
-                className="peer bg-transparent outline outline-0 focus:outline-0 disabled:bg-pink 
-                  disabled:border-0 transition-all placeholder-shown:border-2 
-                  placeholder-shown:border-dark-yellow border-2 focus:border-2 border-t-transparent 
-                  focus:border-t-transparent border-brown focus:border-dark-yellow p-4 rounded-md w-[270px] md:w-[350px]"
-                placeholder=" " />
-              <label
-                className="flex w-[270px] md:w-[350px] select-none pointer-events-none absolute left-0 font-normal
-                    !overflow-visible truncate leading-tight peer-focus:leading-tight 
-                    peer-disabled:text-transparent  transition-all -top-1.5  before:content[' '] before:block
-                    before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 
-                    peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t 
-                    peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 
-                    before:pointer-events-none before:transition-all peer-disabled:before:border-transparent 
-                    after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 
-                    after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent 
-                    after:rounded-tr-md after:border-t-2 peer-focus:after:border-t-2 after:border-r 
-                    peer-focus:after:border-r-2 after:pointer-events-none after:transition-all 
-                    peer-disabled:after:border-transparent peer-placeholder-shown:leading-[5] 
-                    peer-focus:text-brown text-sm 
-                    peer-focus:before:!border-dark-yellow after:border-1 after:border-brown 
-                    peer-focus:after:!border-dark-yellow  before:border-brown">
-                Input phone number or email id
-              </label>
-            </div>
-            <div className="relative">
-              <input type="password" required
-                name="password" value={formDetails.password}
-                onChange={(e) => handleChange(e.target)}
-                className="peer bg-transparent outline outline-0 focus:outline-0 disabled:bg-pink 
-                  disabled:border-0 transition-all placeholder-shown:border-2 
-                  placeholder-shown:border-dark-yellow border-2 focus:border-2 border-t-transparent 
-                  focus:border-t-transparent border-brown focus:border-dark-yellow p-4 rounded-md w-[270px] md:w-[350px]"
-                placeholder=" " />
-              <label
-                className="flex w-[270px] md:w-[350px] select-none pointer-events-none absolute left-0 font-normal
-                    !overflow-visible truncate leading-tight peer-focus:leading-tight 
-                    peer-disabled:text-transparent  transition-all -top-1.5  before:content[' '] before:block
-                    before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 
-                    peer-placeholder-shown:before:border-transparent before:rounded-tl-md before:border-t 
-                    peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 
-                    before:pointer-events-none before:transition-all peer-disabled:before:border-transparent 
-                    after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5 
-                    after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent 
-                    after:rounded-tr-md after:border-t-2 peer-focus:after:border-t-2 after:border-r 
-                    peer-focus:after:border-r-2 after:pointer-events-none after:transition-all 
-                    peer-disabled:after:border-transparent peer-placeholder-shown:leading-[5] 
-                    peer-focus:text-brown text-sm 
-                    peer-focus:before:!border-dark-yellow after:border-1 after:border-brown 
-                    peer-focus:after:!border-dark-yellow  before:border-brown">
-                Input password
-              </label>
-            </div>
-            <Link to={pageName === 'Login' ? "/register" : "/login"} className="text-dark-pink underline">{formLinkName}</Link>
-            <button id="registerButton" className="p-3 w-[200px] h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center justify-self-center"
+              onChange={(e) => handleChange(e.target)} placeholder=" " labelName="Input password">{children}</Input>
+            <Links to={pageName === 'Login' ? "/register" : "/login"} color={"darkPinkLink"} size={"md"}>{formLinkName}</Links>
+            {/* <button id="registerButton" className={Button({color: "darkYellowButton", size: "md"})}
               onClick={(e) => handleFormSubmit(e)}>
               {loading === "true" ? <LoadingIcons.Oval /> : pageName}
-            </button>
-          </form>
+            </button> */}
+            <Button id="registerButton" onClick={(e) => handleFormSubmit(e)} color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center">
+              {loading === "true" ? <LoadingIcons.Oval /> : pageName}
+            </Button>
+          </Form>
         </>)
       }
-
       <ToastContainer />
 
     </>
   )
 }
-
+AuthForm.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default AuthForm

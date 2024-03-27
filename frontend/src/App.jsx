@@ -3,12 +3,11 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import { Home } from './pages/Home'
 import { Logo } from './components/Logo'
-import { GeoLocation } from './components/GeoLocation';
 import { AuthProvide } from './context/AuthProvide'
+import { GeoLocation } from './components/GeoLocation';
 
 
 function App() {
-
   return (
     <>
       <Logo />

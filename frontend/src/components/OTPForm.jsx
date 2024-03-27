@@ -3,12 +3,16 @@ import LoadingIcons from "react-loading-icons"
 import OtpInput from "otp-input-react";
 import { useAuth } from "../hooks/useAuth";
 import { OTPVerify } from "./OTPVerify";
+import { Button } from "../utils/Button";
+import { Form } from "../utils/Form";
+import { useRef } from "react";
 
 export const OTPForm = () => {
     const {loading, setLoading, otp, setOtp, navigate} = useAuth();
+    const ref = useRef();
     return (
         <Fragment>
-            <form className="grid gap-6 mt-[50px] justify-center">
+            <Form ref={ref} size={"md"}>
                 <label
                     htmlFor="otp"
                     className="font-bold text-xl text-center"
@@ -25,15 +29,14 @@ export const OTPForm = () => {
                     className="opt-container"
                     id="otp"
                 ></OtpInput>
-                <button
+                <Button
                     onClick={() => OTPVerify(otp, setLoading, navigate)}
-                    className="p-3 h-[50px] bg-dark-yellow text-off-white rounded-md grid justify-center content-center"
-                >
+                    color={"darkYellowButton"} size={"md"}>
                     {loading ? (
                         <LoadingIcons.Oval />) : "Verify OTP"
                     }
-                </button>
-            </form>
+                </Button>
+            </Form>
         </Fragment>
     )
 }

@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from ".";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+
 
 export const AuthProvide = ({ children }) => {
     const [formDetails, setFormDetails] = useState({
@@ -32,8 +33,8 @@ export const AuthProvide = ({ children }) => {
         </AuthContext.Provider>
     )
 }
-AuthProvide.prototype = {
+AuthProvide.propTypes = {
     children: PropTypes.node.isRequired,
-}
+};
 
 

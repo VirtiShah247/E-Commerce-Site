@@ -1,5 +1,3 @@
-// import React from 'react'
-
 import LoginRegisterComponent from "../components/LoginRegisterComponent"
 import { useAuth } from "../hooks/useAuth";
 
