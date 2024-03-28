@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { forwardRef } from "react";
+import { Fragment, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 const input = tv({
     slots: {
@@ -23,25 +23,33 @@ const input = tv({
         peer-focus:before:border-dark-yellow peer-focus:before:border-dark-yellow after:border-t-2
         after:border-dark-yellow
         peer-focus:after:!border-dark-yellow before:border-t-2 before:border-dark-yellow`
-        
+
     }
 })
-const {base, label} = input();
-export const Input = forwardRef(function Input({ labelName, ...props }, ref){
+const { base, label } = input();
+export const Input = forwardRef(function Input({ labelName, children, ...props }, ref) {
 
     return (
-        <div className="relative justify-self-center sm:justify-self-start">
-            <input ref={ref}  {...props}
-                className={base()} />
-            <label
-                className={label()}>
-                {labelName}
-            </label>
-        </div>
+        <Fragment>
+            <div>
+                <div className="relative justify-self-center sm:justify-self-start">
+                    <input ref={ref}  {...props}
+                        className={base()} />
+                    <label
+                        className={label()}>
+                        {labelName}
+                    </label>
+                </div>
+                {children}
+            </div>
+
+        </Fragment>
+
     )
 })
 
 Input.propTypes = {
     labelName: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };
 

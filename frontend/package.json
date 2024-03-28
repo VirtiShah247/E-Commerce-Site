@@ -12,6 +12,7 @@
   "dependencies": {
     "firebase": "^10.9.0",
     "formik": "^2.4.5",
+    "libphonenumber-js": "^1.10.59",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "otp-input-react": "^0.3.0",
