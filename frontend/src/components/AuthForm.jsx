@@ -13,11 +13,11 @@ import OtpInput from "otp-input-react";
 import { useAuth } from "../hooks/useAuth";
 import { OTPVerify } from "./OTPVerify";
 import PropTypes from "prop-types";
-import { isOnlyDigit } from "../helperFunctions/isOnlyDigit";
 import { Button } from "../utils/Button";
 import { useRef } from "react";
 import { Form } from "../utils/Form";
 import { Links } from "../utils/Links";
+import { isOnlyDigit } from "../helperFunctions/validation/isOnlyDigit";
 // import { captchaVerify } from "../helperFunctions/captchaVerify";
 
 const AuthForm = ({ children }) => {
