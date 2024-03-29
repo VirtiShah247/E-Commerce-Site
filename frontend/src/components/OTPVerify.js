@@ -4,25 +4,26 @@ import { useAuth } from "../hooks/useAuth";
 export const OTPVerify = () => {
     const {setLoading, otp } = useAuth();
     console.log(otp);
-    setLoading("true");
+    setLoading(true);
     window.confirmationResult
       .confirm(otp)
       .then(async (response) => {
         console.log("otp verify response: ", response);
         toast.success(`OTP Verified.  successful`);
         // navigate('/');
-        setLoading("false");
+        setLoading(false);
         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
       })
       .catch((error) => {
         console.log(error);
-        if (error.code === 'auth/invalid-verification-code') {
+        const errorMessage = error.code.split("/")[1];
+        if (errorMessage === 'invalid-verification-code') {
           toast.error(`Invalid OTP. failed`);
-          setLoading("false");
+          setLoading(false);
         }
         else{
-          toast.error(` failed`);
-          setLoading("false");
+          toast.error(errorMessage);
+          setLoading(false);
         }
       });
   }

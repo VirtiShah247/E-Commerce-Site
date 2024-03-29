@@ -19,14 +19,20 @@ export const OTPForm = () => {
             console.log("otp verify response: ", response);
             toast.success("OTP Verified. Register successful");
             navigate('/');
-            setLoading("false");
+            setLoading(false);
             sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
           })
           .catch((error) => {
             console.log(error);
-            if (error.code === 'auth/invalid-verification-code') {
+            const errorMessage = error.code.split("/")[1];
+            if (errorMessage === 'invalid-verification-code') {
               toast.error('Invalid OTP');
+              
               setLoading(false);
+            }
+            else{
+                toast.error(errorMessage);
+                setLoading(false);
             }
           });
       }

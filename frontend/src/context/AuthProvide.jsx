@@ -2,23 +2,11 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from ".";
 import PropTypes from "prop-types";
-// import { useFormik } from "formik";
-// import * as Yup from "yup";
 
 export const AuthProvide = ({ children }) => {
-    const [formDetails, setFormDetails] = useState({
-        'phoneNumberOrEmail': "",
-        'password': ""
-    });
-    // const formik = useFormik({
-    //     initialValues: {
-    //         phoneNumberOrEmail: "",
-    //         password: ""
-    //     },
-    //     validationSchema: Yup.object({
-    //         email: Yup.string().email().required(),
-    //         password: Yup.string().required(),
-    //       }),
+    // const [formDetails, setFormDetails] = useState({
+    //     'phoneNumberOrEmail': "",
+    //     'password': ""
     // });
     const [loading, setLoading] = useState(false);
     const [otp, setOtp] = useState("");
@@ -26,8 +14,6 @@ export const AuthProvide = ({ children }) => {
     const navigate = useNavigate();
     const [pageName, setPageName] = useState("Login");
     const value = {
-        formDetails,
-        setFormDetails,
         loading,
         setLoading,
         otp,

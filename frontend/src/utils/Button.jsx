@@ -14,6 +14,9 @@ const button = tv({
             brownButton: "bg-brown text-off-white"
 
         },
+        disabled: {
+            true: "opacity-50 cursor-not-allowed"
+        },
         size: {
             sm: "text-sm",
             md: "text-base",
@@ -25,9 +28,9 @@ const button = tv({
         color: "darkYellowButton"
     }
 })
-export const Button = forwardRef(function Button({ size, color, className, children, ...props }, ref) {
+export const Button = forwardRef(function Button({ size, color, disabled, className, children, ...props }, ref) {
     return (
-        <button type="button" ref={ref} className={button({ color, size, className })} {...props}>
+        <button type="button" ref={ref} className={button({ color, size, disabled, className })} {...props}>
             {children}
         </button>
     )
@@ -37,4 +40,5 @@ Button.propTypes = {
     color: PropTypes.node.isRequired,
     className: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
+    disabled: PropTypes.node.isRequired,
 };

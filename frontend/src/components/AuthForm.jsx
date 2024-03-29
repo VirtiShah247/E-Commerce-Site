@@ -60,7 +60,7 @@ const AuthForm = () => {
   //       console.log("otp verify response: ", response);
   //       toast.success("OTP Verified. Register successful");
   //       navigate('/');
-  //       setLoading("false");
+  //       setLoading(false);
   //       sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
   //     })
   //     .catch((error) => {
@@ -92,7 +92,7 @@ const AuthForm = () => {
   //       console.log("Sign in with phone no error: ", error);
   //       if (error.code === 'auth/invalid-phone-number') {
   //         toast.error('Please check the Phone Number');
-  //         setLoading("false");
+  //         setLoading(false);
   //       }
 
   //     });
@@ -106,14 +106,14 @@ const AuthForm = () => {
   //         console.log("Resp: ", response);
   //         toast.success("Register successful");
   //         navigate('/');
-  //         setLoading("false");
+  //         setLoading(false);
   //         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
   //       })
   //       .catch((error) => {
   //         console.log("Register Error: ", error);
   //         if (error.code === 'auth/email-already-in-use') {
   //           toast.error('Email Already in Use');
-  //           setLoading("false");
+  //           setLoading(false);
   //         }
   //       })
   //   }
@@ -122,22 +122,22 @@ const AuthForm = () => {
   //       .then((response) => {
   //         toast.success("Login successful");
   //         navigate('/');
-  //         setLoading("false");
+  //         setLoading(false);
   //         sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
   //       })
   //       .catch((error) => {
   //         console.log("Login Error: ", error);
   //         if (error.code === 'auth/invalid-credential') {
   //           toast.error('Please check the Credential');
-  //           setLoading("false");
+  //           setLoading(false);
   //         }
   //         if (error.code === 'auth/wrong-password') {
   //           toast.error('Please check the Password');
-  //           setLoading("false");
+  //           setLoading(false);
   //         }
   //         if (error.code === 'auth/user-not-found') {
   //           toast.error('Please check the Email');
-  //           setLoading("false");
+  //           setLoading(false);
   //         }
   //       })
   //   }
@@ -152,7 +152,7 @@ const AuthForm = () => {
   // }
   // const handleFormSubmit = (event) => {
   //   event.preventDefault();
-  //   setLoading("true");
+  //   setLoading(true);
   //   console.log(formik);
 
   //   // firebase authentication
@@ -235,7 +235,7 @@ const AuthForm = () => {
               onChange={(e) => formik.handleChange} placeholder=" " labelName="Input password">{children}</Input>
             <Links to={pageName === 'Login' ? "/register" : "/login"} color={"darkPinkLink"} size={"md"}>{formLinkName}</Links>
             <Button id="registerButton"  color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center">
-              {loading === "true" ? <LoadingIcons.Oval /> : pageName}
+              {loading === true ? <LoadingIcons.Oval /> : pageName}
             </Button>
           </Form> */}
         </>)
