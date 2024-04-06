@@ -48,16 +48,16 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                 </Link>
 
                 <div className="justify-center gap-5 lg:gap-10 px-3 hidden md:flex">
-                  <Link to="/men">
+                  <Link to="/men" className="hover:text-pink">
                     <div>Men</div>
                   </Link>
-                  <Link to="/women">
+                  <Link to="/women"  className="hover:text-pink">
                     <div>Women</div>
                   </Link>
-                  <Link to="/kids">
+                  <Link to="/kids"  className="hover:text-pink">
                     <div>Kids</div>
                   </Link>
-                  <Link to="/beauty">
+                  <Link to="/beauty" className="hover:text-pink">
                     <div>Beauty</div>
                   </Link>
                 </div>
@@ -74,7 +74,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                     </div>
                     <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md " />
                   </form>
-                  <Link to="/profile">
+                  <Link to="/profile" className="hover:text-pink">
                     <div className="flex flex-col items-center">
                       <div>
                         <AiOutlineUser size={20} />
@@ -82,7 +82,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                       <div className="hidden sm:block">Profile</div>
                     </div>
                   </Link>
-                  <Link to="/wishlist">
+                  <Link to="/wishlist"  className="hover:text-pink">
                     <div className="flex flex-col  items-center">
                       <div>
                         <AiOutlineHeart size={20} />
@@ -90,7 +90,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                       <div className="hidden sm:block">Wishlist</div>
                     </div>
                   </Link>
-                  <Link to="/bag">
+                  <Link to="/bag" className="hover:text-pink">
                     <div className="flex flex-col items-center">
                       <div>
                         <BsBag size={20} />

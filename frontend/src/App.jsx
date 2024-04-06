@@ -12,14 +12,13 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className={"MainBody"}>
+        <div className="mainBody grid grid-rows-[auto_1fr_auto]">
           <Navbar openMenu={openMenu} handleOpenMenu={setOpenMenu} />
           <Routes>
             <Route path="/login" element={<Login />} />
           </Routes>
           <Footer />
         </div>
-
         <MobileSidebar openMenu={openMenu} />
 
       </BrowserRouter>

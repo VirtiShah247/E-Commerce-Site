@@ -1,5 +1,126 @@
+import { Fragment } from "react"
+import { AiFillFacebook, AiFillYoutube, AiOutlineInstagram } from "react-icons/ai";
+import { FaPinterest } from "react-icons/fa";
+import { RiTwitterXLine } from "react-icons/ri";
+import { SlArrowRight } from "react-icons/sl";
+import { Link } from "react-router-dom";
 export const Footer = () => {
-  return (
-    <div>Footer</div>
-  )
+    return (
+        <Fragment>
+            <footer className="bg-dull-pink text-brown grid sm:grid-cols-2 justify-evenly place-items-center shadow-lg pt-[70px] pb-[40px] px-3">
+
+                <div className="grid grid-cols-3 gap-5 sm:gap-[80px] text-wrap text-start">
+                    <div>
+                        <h3 className="mb-2">Customer Service</h3>
+                        <ul>
+                            <Link to="/contact-us" className="hover:text-pink">
+                                <li>
+                                    Contact Us
+                                </li>
+                            </Link>
+                            <Link to="/delivery-returns" className="hover:text-pink">
+                                <li>
+                                    Delivery & Returns
+                                </li>
+                            </Link>
+
+                            {/* <li>
+                                Make An Appointment
+                            </li>
+                            <li>
+                                Bespoke Services
+                            </li> */}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="mb-2">Our Company</h3>
+                        <ul>
+                            <Link to="/about-us" className="hover:text-pink">
+                                <li>
+                                    About us
+                                </li>
+                            </Link>
+                            <Link to="/news" className="hover:text-pink">
+                                <li>
+                                    News
+                                </li>
+                            </Link>
+                            <Link to="/terms-and-conditions" className="hover:text-pink">
+                                <li>
+                                    Terms & Conditions
+                                </li>
+                            </Link>
+                            <Link to="/website-conditions" className="hover:text-pink">
+                                <li>
+                                    Website Conditions
+                                </li>
+                            </Link>
+                            <Link to="privacy-policy" className="hover:text-pink">
+                                <li>
+                                    Privacy Policy
+                                </li>
+                            </Link>
+
+                            <Link to="/cookie-policy" className="hover:text-pink">
+                                <li>
+                                    Cookie Policy
+                                </li>
+                            </Link>
+
+
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="mb-2">Also Of Interest</h3>
+                        <ul>
+                            <Link to="/men" className="hover:text-pink">
+                                <div>Men</div>
+                            </Link>
+                            <Link to="/women" className="hover:text-pink">
+                                <div>Women</div>
+                            </Link>
+                            <Link to="/kids" className="hover:text-pink">
+                                <div>Kids</div>
+                            </Link>
+                            <Link to="/beauty" className="hover:text-pink">
+                                <div>Beauty</div>
+                            </Link>
+                        </ul>
+                    </div>
+                </div>
+                <div className="text-center grid gap-y-4 -order-1 sm:order-1">
+                    <div className="grid gap-y-2">
+                        <h3>Stay in touch</h3>
+                        <p>Be the first to hear about new collections and exclusive events.</p>
+                    </div>
+                    <form className="flex flex-col items-center relative ps-2 pe-3">
+
+                        <input type="email" placeholder="Email Address" id="email" name="email" className="grid w-full px-3 py-3 rounded-md focus:outline-none" />
+                        <div className="absolute top-3 right-5">
+                            {
+                                <SlArrowRight size={20} />
+                            }
+                        </div>
+                    </form>
+                    <div className="flex gap-5 place-items-center justify-center text-brown">
+                        <div>
+                            <AiOutlineInstagram size={30} />
+                        </div>
+                        <div>
+                            <AiFillFacebook size={30} />
+                        </div>
+                        <div>
+                            <FaPinterest size={30} />
+                        </div>
+                        <div>
+                            <RiTwitterXLine size={30} />
+                        </div>
+                        <div >
+                            <AiFillYoutube size={30} />
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </Fragment>
+    )
 }
