@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import plugin from 'tailwindcss/plugin';
 export default {
   content: [
     "./index.html",
@@ -6,6 +7,19 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        slideInFromLeft: {
+          '0%': {
+            transform: 'translateX(-20%)'
+          },
+          '100%': {
+            transform: 'translateX(0)'
+          }
+        }
+      },
+      animation: {
+        slideIn: 'slideInFromLeft 300ms ease 0s 1 '
+      },
       colors: {
         'off-white': '#FEF2F2',
         'dull-pink': '#f6dddd',
@@ -18,5 +32,13 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+		plugin(function ({addBase}) {
+			addBase({
+				'[type="search"]::-webkit-search-cancel-button': {display: 'none'},
+      
+			
+			})
+		}),
+  ],
 }
