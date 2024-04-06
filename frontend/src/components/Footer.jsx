@@ -103,21 +103,31 @@ export const Footer = () => {
                         </div>
                     </form>
                     <div className="flex gap-5 place-items-center justify-center text-brown">
-                        <div>
-                            <AiOutlineInstagram size={30} />
-                        </div>
-                        <div>
-                            <AiFillFacebook size={30} />
-                        </div>
-                        <div>
-                            <FaPinterest size={30} />
-                        </div>
-                        <div>
-                            <RiTwitterXLine size={30} />
-                        </div>
-                        <div >
-                            <AiFillYoutube size={30} />
-                        </div>
+                        <Link to="https://www.instagram.com/" className="hover:opacity-50">
+                            <div>
+                                <AiOutlineInstagram size={30} />
+                            </div>
+                        </Link>
+                        <Link to="https://www.facebook.com/" className="hover:opacity-50">
+                            <div>
+                                <AiFillFacebook size={30} />
+                            </div>
+                        </Link>
+                        <Link to="https://in.pinterest.com/" className="hover:opacity-50">
+                            <div>
+                                <FaPinterest size={30} />
+                            </div>
+                        </Link>
+                        <Link to="https://twitter.com/" className="hover:opacity-50">
+                            <div>
+                                <RiTwitterXLine size={30} />
+                            </div>
+                        </Link>
+                        <Link to="https://youtube.com/" className="hover:opacity-50">
+                            <div >
+                                <AiFillYoutube size={30} />
+                            </div>
+                        </Link>
                     </div>
                 </div>
             </footer>
