@@ -13,12 +13,12 @@ export const Footer = () => {
                         <div>
                             <h4 className="mb-2 uppercase">Customer Service</h4>
                             <ul>
-                                <Link to="/contact-us" className="hover:text-pink">
+                                <Link to="/contact-us" className="hover:opacity-50">
                                     <li>
                                         Contact Us
                                     </li>
                                 </Link>
-                                <Link to="/delivery-returns" className="hover:text-pink">
+                                <Link to="/delivery-returns" className="hover:opacity-50">
                                     <li>
                                         Delivery & Returns
                                     </li>
@@ -35,33 +35,33 @@ export const Footer = () => {
                         <div>
                             <h4 className="mb-2 uppercase">Our Company</h4>
                             <ul>
-                                <Link to="/about-us" className="hover:text-pink">
+                                <Link to="/about-us" className="hover:opacity-50">
                                     <li>
                                         About us
                                     </li>
                                 </Link>
-                                <Link to="/news" className="hover:text-pink">
+                                <Link to="/news" className="hover:opacity-50">
                                     <li>
                                         News
                                     </li>
                                 </Link>
-                                <Link to="/terms-and-conditions" className="hover:text-pink">
+                                <Link to="/terms-and-conditions" className="hover:opacity-50">
                                     <li>
                                         Terms & Conditions
                                     </li>
                                 </Link>
-                                <Link to="/website-conditions" className="hover:text-pink">
+                                <Link to="/website-conditions" className="hover:opacity-50">
                                     <li>
                                         Website Conditions
                                     </li>
                                 </Link>
-                                <Link to="privacy-policy" className="hover:text-pink">
+                                <Link to="privacy-policy" className="hover:opacity-50">
                                     <li>
                                         Privacy Policy
                                     </li>
                                 </Link>
 
-                                <Link to="/cookie-policy" className="hover:text-pink">
+                                <Link to="/cookie-policy" className="hover:opacity-50">
                                     <li>
                                         Cookie Policy
                                     </li>
@@ -73,16 +73,16 @@ export const Footer = () => {
                         <div>
                             <h4 className="mb-2 uppercase">Also Of Interest</h4>
                             <ul>
-                                <Link to="/men" className="hover:text-pink">
+                                <Link to="/men" className="hover:opacity-50">
                                     <div>Men</div>
                                 </Link>
-                                <Link to="/women" className="hover:text-pink">
+                                <Link to="/women" className="hover:opacity-50">
                                     <div>Women</div>
                                 </Link>
-                                <Link to="/kids" className="hover:text-pink">
+                                <Link to="/kids" className="hover:opacity-50">
                                     <div>Kids</div>
                                 </Link>
-                                <Link to="/beauty" className="hover:text-pink">
+                                <Link to="/beauty" className="hover:opacity-50">
                                     <div>Beauty</div>
                                 </Link>
                             </ul>

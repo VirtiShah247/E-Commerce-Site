@@ -48,16 +48,16 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                 </Link>
 
                 <div className="justify-center gap-5 lg:gap-10 px-3 hidden md:flex">
-                  <Link to="/men" className="hover:text-pink">
+                  <Link to="/men" className="hover:opacity-50">
                     <div>Men</div>
                   </Link>
-                  <Link to="/women"  className="hover:text-pink">
+                  <Link to="/women"  className="hover:opacity-50">
                     <div>Women</div>
                   </Link>
-                  <Link to="/kids"  className="hover:text-pink">
+                  <Link to="/kids"  className="hover:opacity-50">
                     <div>Kids</div>
                   </Link>
-                  <Link to="/beauty" className="hover:text-pink">
+                  <Link to="/beauty" className="hover:opacity-50">
                     <div>Beauty</div>
                   </Link>
                 </div>
@@ -74,7 +74,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                     </div>
                     <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md " />
                   </form>
-                  <Link to="/profile" className="hover:text-pink">
+                  <Link to="/profile" className="hover:opacity-50">
                     <div className="flex flex-col items-center">
                       <div>
                         <AiOutlineUser size={20} />
@@ -82,7 +82,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                       <div className="hidden sm:block">Profile</div>
                     </div>
                   </Link>
-                  <Link to="/wishlist"  className="hover:text-pink">
+                  <Link to="/wishlist"  className="hover:opacity-50">
                     <div className="flex flex-col  items-center">
                       <div>
                         <AiOutlineHeart size={20} />
@@ -90,7 +90,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                       <div className="hidden sm:block">Wishlist</div>
                     </div>
                   </Link>
-                  <Link to="/bag" className="hover:text-pink">
+                  <Link to="/bag" className="hover:opacity-50">
                     <div className="flex flex-col items-center">
                       <div>
                         <BsBag size={20} />
