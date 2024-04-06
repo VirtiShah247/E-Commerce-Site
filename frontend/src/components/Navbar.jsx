@@ -18,7 +18,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
             openMobileSearch ?
               <nav className="w-full m-0 p-0">
                 <form className="flex flex-col items-center relative">
-                  <button className="absolute top-5 left-2" onClick={()=>console.log("click")}>
+                  <button className="absolute top-5 left-2">
                     <AiOutlineArrowLeft size={20} />
                   </button>
                   <input type="search" placeholder="Search for products, brands, and more" className="bg-dull-pink placeholder:text-brown placeholder:text-ellipse grid w-full h-[60px] px-9 pe-12 py-[5px] rounded-md focus:outline-none" />
