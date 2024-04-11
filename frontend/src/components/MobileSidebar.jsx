@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const MobileSidebar = ({ openMenu }) => {
     return (
         <Fragment>
-            <aside className={`${openMenu ? "!bg-dull-pink w-[250px] h-full absolute p-5 pt-[40px] m-0 mt-[80px] left-0 top-0 z-2 animate-[300ms_ease_0s_1_slideInFromLeft]" : "hidden"}`}>
+            <aside className={`${openMenu ? "!bg-dull-pink w-[250px] h-full absolute p-5 pt-[40px] m-0 mt-[57px] left-0 top-0 z-2 animate-[300ms_ease_0s_1_slideInFromLeft]" : "hidden"}`}>
                 <Link to="/men"  className="hover:opacity-50">
                     <div>Men</div>
                 </Link>
