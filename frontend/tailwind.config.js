@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from 'tailwindcss/plugin';
+
 export default {
   content: [
     "./index.html",
@@ -15,10 +16,11 @@ export default {
           '100%': {
             transform: 'translateX(0)'
           }
-        }
+        },
+        
       },
       animation: {
-        slideIn: 'slideInFromLeft 300ms ease 0s 1 '
+        slideIn: 'slideInFromLeft 300ms ease 0s 1 ',
       },
       colors: {
         'off-white': '#FEF2F2',
@@ -36,9 +38,8 @@ export default {
 		plugin(function ({addBase}) {
 			addBase({
 				'[type="search"]::-webkit-search-cancel-button': {display: 'none'},
-      
-			
 			})
 		}),
+    
   ],
 }

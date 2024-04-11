@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import { MobileSidebar } from './components/MobileSidebar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Footer } from './components/Footer';
+import { LandingPage } from './components/LandingPage';
 
 function App() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -14,6 +15,7 @@ function App() {
       <BrowserRouter>
         <div className="mainBody grid grid-rows-[auto_1fr_auto]">
           <Navbar openMenu={openMenu} handleOpenMenu={setOpenMenu} />
+          <LandingPage />
           <Routes>
             <Route path="/login" element={<Login />} />
           </Routes>
