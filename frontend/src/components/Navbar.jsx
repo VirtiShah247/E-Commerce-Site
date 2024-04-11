@@ -72,7 +72,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
 
                       }
                     </div>
-                    <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md " />
+                    <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
                   </form>
                   <Link to="/profile" className="hover:opacity-50">
                     <div className="flex flex-col items-center">
