@@ -25,7 +25,7 @@ function App() {
           <div className="mainBody grid grid-rows-[auto_1fr_auto]">
             <Navbar openMenu={openMenu} handleOpenMenu={setOpenMenu} />
             <LandingPage />
-          <Routes>
+            <Routes>
               <Route index path='/' element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />

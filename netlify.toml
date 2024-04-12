@@ -10,5 +10,5 @@
 # Redirects and rewrites
 [[redirects]]
   from = "/*"
-  to = "/frontend/index.html"
+  to = "/index.html"
   status = 200
