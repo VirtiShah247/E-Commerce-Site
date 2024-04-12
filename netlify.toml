@@ -2,7 +2,7 @@
 
 # Build settings
 [build]
-    command = "npm run build"
+    command = "cd frontend && npm run build"
     publish = "./frontend/dist"
 
 # Redirects and rewrites
