@@ -2,7 +2,7 @@
 
 # Build settings
 [build]
-    command = "cd frontend && npm run build"
+    command = "cd frontend && npx vite build"
     publish = "./frontend/dist"
 
 # Redirects and rewrites
