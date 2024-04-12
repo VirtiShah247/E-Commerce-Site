@@ -1,0 +1,15 @@
+# netlify.toml
+
+# Build settings
+[build]
+    command = "npm run build"
+    publish = "./frontend/dist"
+
+# Redirects and rewrites
+[[redirects]]
+    from = "/*"
+    to = "/frontend/index.html"
+    status = 200
+
+
+
