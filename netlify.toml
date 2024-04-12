@@ -2,14 +2,13 @@
 
 # Build settings
 [build]
-    command = "cd frontend && npx vite build"
-    publish = "./frontend/dist"
+  # Change directory to the frontend folder
+  base = "frontend/"
+  command = "npx vite build" # Adjust the build command to execute within the frontend folder
+  publish = "frontend/dist/" # Publish the build output from the frontend folder
 
 # Redirects and rewrites
 [[redirects]]
-    from = "/*"
-    to = "/frontend/index.html"
-    status = 200
-
-
-
+  from = "/*"
+  to = "/frontend/index.html"
+  status = 200
