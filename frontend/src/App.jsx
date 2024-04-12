@@ -7,6 +7,7 @@ import { Navbar } from './components/Navbar'
 // import { Logo } from './components/Logo'
 import { MobileSidebar } from './components/MobileSidebar';
 import { Footer } from './components/Footer';
+import { LandingPage } from './components/LandingPage';
 import { AuthProvide } from './context/AuthProvide'
 import { GeoLocation } from './components/GeoLocation';
 // import './App.css'
@@ -23,7 +24,8 @@ function App() {
           <GeoLocation />
           <div className="mainBody grid grid-rows-[auto_1fr_auto]">
             <Navbar openMenu={openMenu} handleOpenMenu={setOpenMenu} />
-            <Routes>
+            <LandingPage />
+          <Routes>
               <Route index path='/' element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
