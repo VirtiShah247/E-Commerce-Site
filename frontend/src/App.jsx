@@ -4,12 +4,12 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import { Home } from './pages/Home'
 import { Navbar } from './components/Navbar'
-import { Logo } from './components/Logo'
+// import { Logo } from './components/Logo'
 import { MobileSidebar } from './components/MobileSidebar';
 import { Footer } from './components/Footer';
 import { AuthProvide } from './context/AuthProvide'
 import { GeoLocation } from './components/GeoLocation';
-import './App.css'
+// import './App.css'
 // import Login from './pages/Login'
 
 
@@ -17,7 +17,7 @@ function App() {
   const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
-      <Logo />
+      {/* <Logo /> */}
       <BrowserRouter>
         <AuthProvide>
           <GeoLocation />
