@@ -2,10 +2,12 @@ import { tv } from "tailwind-variants";
 import PropTypes from "prop-types";
 import { forwardRef } from "react";
 const button = tv({
-    base: "p-3 w-[200px] h-[50px] rounded-md grid justify-center content-center",
+    base: "rounded-md grid justify-center content-center",
     variants: {
         color: {
             offWhiteButton: "bg-off-white text-brown",
+            whiteButton: "bg-white text-brown",
+            dullPinkButton: "bg-dull-pink text-brown",
             lightPinkButton: "bg-light-pink text-brown",
             darkPinkButton: "bg-dark-pink text-off-white",
             pinkButton: "bg-pink text-off-white",
@@ -19,7 +21,7 @@ const button = tv({
         },
         size: {
             sm: "text-sm",
-            md: "text-base",
+            md: "text-md",
             lg: "text-xl",
         }
     },

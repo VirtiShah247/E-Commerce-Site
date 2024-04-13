@@ -56,7 +56,7 @@ export const OTPForm = () => {
               id="otp"
             ></OtpInput>
             <Button onClick={onOTPVerify}
-              color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center">
+              color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16">
               {loading ? (
                 <LoadingIcons.Oval />) : "Verify OTP"
               }

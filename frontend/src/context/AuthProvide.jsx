@@ -13,6 +13,7 @@ export const AuthProvide = ({ children }) => {
     const [showOTP, setShowOTP] = useState(false);
     const navigate = useNavigate();
     const [pageName, setPageName] = useState("Login");
+    const authToken = sessionStorage.getItem("Auth Token");
     const value = {
         loading,
         setLoading,
@@ -23,6 +24,7 @@ export const AuthProvide = ({ children }) => {
         navigate,
         pageName,
         setPageName,
+        authToken
     }
     return (
         <AuthContext.Provider value={value}>
