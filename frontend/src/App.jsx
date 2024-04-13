@@ -30,7 +30,7 @@ function App() {
             </Routes>
             <Footer />
           </div>
-          <MobileSidebar openMenu={openMenu} />
+          <MobileSidebar openMenu={openMenu} handleOpenMenu={setOpenMenu}/>
         </AuthProvide>
       </BrowserRouter>
 
