@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import PropTypes from "prop-types";
-import { useRef } from 'react';
 import { useEffect } from 'react';
 import { Button } from '../utils/Button';
+import { useRef } from 'react';
 
-export const Dropdown = ({ children }) =>{
+export const Dropdown = ({ children, className, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef();
   useEffect(()=>{
     const handleClickOutside = (event) => {
         console.log(event.target);
@@ -45,7 +45,7 @@ export const Dropdown = ({ children }) =>{
   // },[isOpen]);
  
   return (
-    <div  ref={ref} className="relative">
+    <div ref={ref} className={`relative ${className}`} {...props}>
       <Button color="dullPinkButton" onClick={() => setIsOpen(!isOpen)} className={`rounded-none ${isOpen && "border-b-[3px] border-pink"}`}>
         {children[0]}
       </Button>
@@ -61,4 +61,6 @@ export const Dropdown = ({ children }) =>{
 }
 Dropdown.propTypes = {
     children: PropTypes.node.isRequired,
+    className: PropTypes.node.isRequired,
+    props: PropTypes.node.isRequired,
 };

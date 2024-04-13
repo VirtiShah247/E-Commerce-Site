@@ -3,25 +3,17 @@ import Logo from "../assets/logo1.png";
 import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsBag } from "react-icons/bs";
 import PropTypes from "prop-types";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Dropdown } from "./Dropdown";
-import { auth } from "../firebase/config";
-import { useAuth } from "../hooks/useAuth";
 import { Button } from "../utils/Button";
+import { ProfileItems } from "./ProfileItems";
 
 export const Navbar = ({ openMenu, handleOpenMenu }) => {
   const [openMobileSearch, setOpenMobileSearch] = useState(false);
-  const {authToken} = useAuth();
-  const navigate = useNavigate();
   const commonMenuCss = "bg-brown h-[0.2rem] block w-[30px] transition ease transform duration-300";
   const screenWidth = useRef(window.innerWidth);
   console.log(screenWidth);
-  const handleLogout = () => {
-    console.log("session storage: " + authToken);
-    auth.signOut();
-    sessionStorage.removeItem("Auth Token");
-    window.location.reload();
-  }
+  
   return (
     <Fragment>
       <header>
@@ -86,14 +78,15 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                     </div>
                     <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
                   </form>
-                  <Dropdown>
-                    <div className="flex flex-col items-center w-full">
+                  <Dropdown className="hidden sm:block">
+                    <div className="hidden sm:flex-col sm:items-center sm:w-full sm:flex">
                       <div>
                         <AiOutlineUser size={20} />
                       </div>
-                      <div className="hidden sm:block">Profile</div>
+                      <div>Profile</div>
                     </div>
-                    <div className=" text-center grid content-center justify-center ">
+                    <ProfileItems />
+                    {/* <div className=" text-center grid content-center justify-center ">
                       {
                         authToken === null ? 
                         <div className="grid">
@@ -104,7 +97,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                         :
                       <Button color="whiteButton" className="text-pink font-medium" onClick={handleLogout}>Log out</Button>
                       }
-                    </div>
+                    </div> */}
                   </Dropdown>
                   <Link to="/wishlist" className="hover:opacity-50">
                     <div className="flex flex-col items-center w-full">
