@@ -175,7 +175,7 @@ export const LoginRegisterForm = () => {
         <Fragment>
             <Form ref={ref} size={"md"} onSubmit={(e) => handleFormSubmit(e)}>
                 <center>
-                    <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-white text-brown flex gap-3">
+                    <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-white text-brown flex gap-3 p-3">
                         {<FcGoogle size="30px" />}<span>Sign in with google</span>
                     </Button>
                 </center>
@@ -205,7 +205,7 @@ export const LoginRegisterForm = () => {
                 </Input>
 
                 <Links to={pageName === 'Login' ? "/register" : "/login"} color={"darkPinkLink"} size={"md"}>{formLinkName}</Links>
-                <Button id="registerButton" type="submit" color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center" disabled={loading}>
+                <Button id="registerButton" type="submit" color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16" disabled={loading}>
                     {loading === true ? <LoadingIcons.Oval /> : pageName}
                 </Button>
             </Form>
