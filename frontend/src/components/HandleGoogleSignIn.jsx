@@ -1,10 +1,10 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase/config";
 import { toast } from "react-toastify";
-import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const HandleGoogleSignIn = () => {
-    const {navigate} = useAuth();
+  const navigate = useNavigate();
     signInWithPopup(auth, provider)
       .then((response) => {
         // This gives you a Google Access Token. You can use it to access the Google API.

@@ -14,14 +14,17 @@ import { auth, provider } from "../firebase/config";
 import { useInputChange } from "../hooks/useInputChange";
 // import { Formik } from "formik";
 import { formValidationSchema } from "../helperFunctions/validation/formValidationSchema";
+import { useNavigate } from "react-router-dom";
 
 export const LoginRegisterForm = () => {
     const ref = useRef();
-    const { pageName, loading, setLoading, setShowOTP, navigate } = useAuth();
+    const { pageName, setShowOTP } = useAuth();
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState();
     const [errors, setErrors] = useState({});
     const formLinkName = pageName === "Login" ? "New User? Register" : "Already Registered? Login";
     const [formDetails, handleChange] = useInputChange();
-    
+
     const onCaptchVerify = () => {
         if (!window.recaptchaVerifier) {
             window.recaptchaVerifier = new RecaptchaVerifier(auth,
@@ -88,7 +91,7 @@ export const LoginRegisterForm = () => {
                         toast.error('Email Already in Use');
                         setLoading(false);
                     }
-                    else{
+                    else {
                         toast.error(errorMessage);
                         setLoading(false);
                     }
@@ -124,16 +127,16 @@ export const LoginRegisterForm = () => {
                 })
         }
     }
-    const handleFormSubmit = async(event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
         console.log(formDetails);
-        try{
-            const response = await formValidationSchema.validate(formDetails, {abortEarly: false});
+        try {
+            const response = await formValidationSchema.validate(formDetails, { abortEarly: false });
             console.log(response);
             isOnlyDigit(formDetails.phoneNumberOrEmail) ? phonePasswordAuthentication() : emailPasswordAuthentication();
         }
-        catch(error){
+        catch (error) {
             const newErrors = {};
             console.log(error.inner);
             error.inner.forEach((err) => {

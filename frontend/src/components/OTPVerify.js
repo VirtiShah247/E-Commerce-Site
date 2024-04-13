@@ -1,9 +1,11 @@
 import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
 
 export const OTPVerify = () => {
-    const {setLoading, otp } = useAuth();
-    console.log(otp);
+    const { otp } = useAuth();
+    const [loading, setLoading] = useState();
+    console.log(loading);
     setLoading(true);
     window.confirmationResult
       .confirm(otp)
