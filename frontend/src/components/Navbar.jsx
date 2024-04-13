@@ -4,6 +4,7 @@ import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch, AiOutlineArrowLeft } fr
 import { BsBag } from "react-icons/bs";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Dropdown } from "./Dropdown";
 
 export const Navbar = ({ openMenu, handleOpenMenu }) => {
   const [openMobileSearch, setOpenMobileSearch] = useState(false);
@@ -13,7 +14,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
   return (
     <Fragment>
       <header>
-        <div className="bg-dull-pink text-brown shadow-md">
+        <div className="bg-dull-pink text-brown shadow-md ">
           {
             openMobileSearch ?
               <nav className="w-full m-0 p-0">
@@ -26,12 +27,12 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                     <AiOutlineClose  size={20} />
                   </div> */}
                   <button className="absolute top-5 right-5 ms-5">
-                    <AiOutlineSearch  size={20} />
+                    <AiOutlineSearch size={20} />
                   </button>
                 </form>
               </nav> :
 
-              <nav className="flex justify-around content-center items-center px-5 py-2">
+              <nav className="flex justify-around content-start items-center px-5 py-2 justify-items-stretch">
                 <button className="grid gap-y-1 sm:hidden" onClick={() => handleOpenMenu(!openMenu)}>
                   <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45"}`}>
 
@@ -51,17 +52,17 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                   <Link to="/men" className="hover:opacity-50">
                     <div>Men</div>
                   </Link>
-                  <Link to="/women"  className="hover:opacity-50">
+                  <Link to="/women" className="hover:opacity-50">
                     <div>Women</div>
                   </Link>
-                  <Link to="/kids"  className="hover:opacity-50">
+                  <Link to="/kids" className="hover:opacity-50">
                     <div>Kids</div>
                   </Link>
                   <Link to="/beauty" className="hover:opacity-50">
                     <div>Beauty</div>
                   </Link>
                 </div>
-                <div className="flex justify-center content-center gap-3">
+                <div className="flex justify-center content-center gap-3   items-center">
                   <form className="flex flex-col items-center sm:relative sm:grid sm:ps-2 sm:pe-3">
                     <div className="sm:absolute sm:top-3 sm:left-4">
                       {
@@ -74,20 +75,23 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
                     </div>
                     <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
                   </form>
-                  <Link to="/profile" className="hover:opacity-50">
-                    <div className="flex flex-col items-center">
+                  <Dropdown>
+                    <div className="flex flex-col items-center w-full">
                       <div>
                         <AiOutlineUser size={20} />
                       </div>
                       <div className="hidden sm:block">Profile</div>
                     </div>
-                  </Link>
-                  <Link to="/wishlist"  className="hover:opacity-50">
-                    <div className="flex flex-col  items-center">
+                    <div className=" text-center grid content-center justify-center">
+                      <button className="text-pink font-medium">Log out</button>
+                    </div>
+                  </Dropdown>
+                  <Link to="/wishlist" className="hover:opacity-50">
+                    <div className="flex flex-col items-center w-full">
                       <div>
                         <AiOutlineHeart size={20} />
                       </div>
-                      <div className="hidden sm:block">Wishlist</div>
+                      <div className="hidden sm:block">Whislist</div>
                     </div>
                   </Link>
                   <Link to="/bag" className="hover:opacity-50">
