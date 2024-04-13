@@ -1,0 +1,14 @@
+# netlify.toml
+
+# Build settings
+[build]
+  # Change directory to the frontend folder
+  base = "frontend/"
+  command = "npx vite build" # Adjust the build command to execute within the frontend folder
+  publish = "dist/" # Publish the build output from the frontend folder
+
+# Redirects and rewrites
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
