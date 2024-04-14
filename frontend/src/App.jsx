@@ -1,11 +1,9 @@
-import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import { Home } from './pages/Home'
 import { Navbar } from './components/Navbar'
 // import { Logo } from './components/Logo'
-import { MobileSidebar } from './components/MobileSidebar';
 import { Footer } from './components/Footer';
 import { AuthProvide } from './context/AuthProvide'
 import { GeoLocation } from './components/GeoLocation';
@@ -14,7 +12,6 @@ import { GeoLocation } from './components/GeoLocation';
 
 
 function App() {
-  const [openMenu, setOpenMenu] = useState(false);
   return (
     <>
       {/* <Logo /> */}
@@ -22,7 +19,7 @@ function App() {
         <AuthProvide>
           <GeoLocation />
           <div className="mainBody grid grid-rows-[auto_1fr_auto]">
-            <Navbar openMenu={openMenu} handleOpenMenu={setOpenMenu} />
+            <Navbar />
             <Routes>
               <Route index path='/' element={<Home />} />
               <Route path="/login" element={<Login />} />
@@ -30,7 +27,7 @@ function App() {
             </Routes>
             <Footer />
           </div>
-          <MobileSidebar openMenu={openMenu} handleOpenMenu={setOpenMenu}/>
+          {/* <MobileSidebar openMenu={openMenu} handleOpenMenu={setOpenMenu}/> */}
         </AuthProvide>
       </BrowserRouter>
 

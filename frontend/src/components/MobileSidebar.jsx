@@ -5,12 +5,16 @@ import { ProfileItems } from "./ProfileItems";
 
 export const MobileSidebar = ({ openMenu, handleOpenMenu }) => {
     const ref = useRef();
-    const handleCloseMenu = (event) => {
-        if(ref.current && !ref.current.contains(event.target)){
-            handleOpenMenu(false);
-        }
-    }
+
     useEffect(()=>{
+        const handleCloseMenu = (event) => {
+            if(ref.current && !ref.current.contains(event.target) && !event.target.classList.contains("hamburgerMenuClose")){
+                console.log("event target: " + event.target.classList.contains("hamburgerMenuClose"));
+                console.log("ref mobile sidebar: " + ref.current.contains(event.target) );
+                console.log("mobile side bar: " + openMenu);
+                handleOpenMenu(!openMenu);
+            }
+        }
         if(openMenu){
             document.addEventListener("mousedown", handleCloseMenu);
         }
@@ -20,7 +24,7 @@ export const MobileSidebar = ({ openMenu, handleOpenMenu }) => {
     },[openMenu]);
     return (
         <Fragment>
-            <aside ref = {ref} className={`${openMenu ? "!bg-dull-pink w-[250px] h-full absolute p-5 pt-[40px] m-0 mt-[57px] left-0 top-0 z-2 animate-[300ms_ease_0s_1_slideInFromLeft]" : "hidden"}`}>
+            <aside ref = {ref} className={`${openMenu ? "!bg-dull-pink !z-10 w-[250px] h-full absolute p-5 pt-[40px] m-0 mt-[57px] left-0 top-0 z-2 animate-[300ms_ease_0s_1_slideInFromLeft]" : "hidden"}`}>
                 <div>
                     <Link to="/men"  className="hover:opacity-50">
                         <div>Men</div>

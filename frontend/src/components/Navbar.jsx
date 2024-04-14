@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react"
+import { Fragment, useCallback, useRef, useState } from "react"
 import Logo from "../assets/logo1.png";
 import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsBag } from "react-icons/bs";
@@ -7,12 +7,19 @@ import { Link } from "react-router-dom";
 import { Dropdown } from "./Dropdown";
 import { Button } from "../utils/Button";
 import { ProfileItems } from "./ProfileItems";
+import { MobileSidebar } from "./MobileSidebar";
 
-export const Navbar = ({ openMenu, handleOpenMenu }) => {
+export const Navbar = () => {
+  const [openMenu, setOpenMenu] = useState(false);
   const [openMobileSearch, setOpenMobileSearch] = useState(false);
   const commonMenuCss = "bg-brown h-[0.2rem] block w-[30px] transition ease transform duration-300";
   const screenWidth = useRef(window.innerWidth);
   console.log(screenWidth);
+  const handleMenu = useCallback(() => {
+    console.log("open menu: " + openMenu);
+    setOpenMenu(openMenu => (!openMenu));
+
+  }, [openMenu])
   
   return (
     <Fragment>
@@ -22,7 +29,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
             openMobileSearch ?
               <nav className="w-full m-0 p-0">
                 <form className="flex flex-col items-center relative">
-                  <Button color="dullPinkButton" className="absolute top-5 left-2" onClick={()=>window.location.reload()}>
+                  <Button color="dullPinkButton" className="absolute top-5 left-2" onClick={() => window.location.reload()}>
                     <AiOutlineArrowLeft size={20} />
                   </Button>
                   <input type="search" placeholder="Search for products, brands, and more" className="bg-dull-pink placeholder:text-brown placeholder:text-ellipse grid w-full h-[60px] px-9 pe-12 py-[5px] rounded-md focus:outline-none" />
@@ -36,14 +43,14 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
               </nav> :
 
               <nav className="flex justify-around content-start items-center px-5 py-2 justify-items-stretch">
-                <Button color="dullPinkButton" className="grid gap-y-1 sm:hidden" onClick={() => handleOpenMenu(!openMenu)}>
-                  <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45"}`}>
+                <Button color="dullPinkButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
+                  <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45 hamburgerMenuClose"}`}>
 
                   </span>
-                  <span className={`${commonMenuCss} ${openMenu && "opacity-0"}`}>
+                  <span className={`${commonMenuCss} ${openMenu && "opacity-0 hamburgerMenuClose"}`}>
 
                   </span>
-                  <span className={`${commonMenuCss} ${openMenu && "-translate-y-[9px] -rotate-45"}`}>
+                  <span className={`${commonMenuCss} ${openMenu && "-translate-y-[9px] -rotate-45 hamburgerMenuClose"}`}>
 
                   </span>
                 </Button>
@@ -119,6 +126,7 @@ export const Navbar = ({ openMenu, handleOpenMenu }) => {
               </nav>
           }
         </div>
+        <MobileSidebar openMenu={openMenu} handleOpenMenu={handleMenu} />
       </header>
     </Fragment>
   )
