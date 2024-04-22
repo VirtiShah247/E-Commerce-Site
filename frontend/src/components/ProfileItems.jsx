@@ -24,7 +24,7 @@ export const ProfileItems = () => {
                             <Button color="whiteButton" className="text-pink font-medium border-grey-500 border-2 p-2 mt-2" onClick={() => navigate("/login")}>LOGIN / SIGNUP</Button>
                         </div>
                         :
-                        <Button color="whiteButton" className="text-pink font-medium" onClick={handleLogout}>Log out</Button>
+                        <Button color="whiteButton" className="text-pink font-medium py-2 px-16" onClick={handleLogout}>Log out</Button>
                 }
             </div>
         </Fragment>
