@@ -5,15 +5,11 @@ const button = tv({
     base: "rounded-md grid justify-center content-center",
     variants: {
         color: {
-            offWhiteButton: "bg-off-white text-brown",
-            whiteButton: "bg-white text-brown",
-            dullPinkButton: "bg-dull-pink text-brown",
-            lightPinkButton: "bg-light-pink text-brown",
-            darkPinkButton: "bg-dark-pink text-off-white",
-            pinkButton: "bg-pink text-off-white",
-            brownishYellowButton: "bg-brownish-yellow text-off-white",
-            darkYellowButton: "bg-dark-yellow text-off-white",
-            brownButton: "bg-brown text-off-white"
+            baseColorButton: "bg-base-color text-foreground-color",
+            primaryColorButton: "bg-primary-color text-base-color",
+            secondaryColorButton: "bg-secondary-color text-foreground-color",
+            foregroundColorButton: "bg-foreground-color text-base-color",
+            activeStateColorButton: "bg-actibe-state-color text-foreground-color",
 
         },
         disabled: {
@@ -27,7 +23,7 @@ const button = tv({
     },
     defaultVariants: {
         size: "md",
-        color: "darkYellowButton"
+        color: "primaryColorButton"
     }
 })
 export const Button = forwardRef(function Button({ size, color, disabled, className, children, ...props }, ref) {

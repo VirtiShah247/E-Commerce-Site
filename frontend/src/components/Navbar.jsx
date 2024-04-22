@@ -8,42 +8,51 @@ import { Dropdown } from "./Dropdown";
 import { Button } from "../utils/Button";
 import { ProfileItems } from "./ProfileItems";
 import { MobileSidebar } from "./MobileSidebar";
+import { useEffect } from "react";
 
 export const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openMobileSearch, setOpenMobileSearch] = useState(false);
-  const commonMenuCss = "bg-brown h-[0.2rem] block w-[30px] transition ease transform duration-300";
+  const commonMenuCss = "bg-foreground-color h-[0.2rem] block w-[30px] transition ease transform duration-300";
   const screenWidth = useRef(window.innerWidth);
+  const openMenuRef = useRef(openMenu);
   console.log(screenWidth);
   const handleMenu = useCallback(() => {
     console.log("open menu: " + openMenu);
     setOpenMenu(openMenu => (!openMenu));
-
+    openMenuRef.current = !openMenu;
   }, [openMenu])
-  
+  useEffect(()=>{
+    if(openMenuRef.current){
+    document.querySelector(".mainBody").classList.add("overlayBackground");
+    }
+    return()=>{
+    document.querySelector(".mainBody").classList.remove("overlayBackground");
+    }
+  },[openMenu]);
   return (
     <Fragment>
       <header>
-        <div className="bg-dull-pink text-brown shadow-md ">
+        <div className="shadow-lg mb-5">
           {
             openMobileSearch ?
-              <nav className="w-full m-0 p-0">
+              <nav className="w-full m-0 p-0 bg-base-color shadow-2xl">
                 <form className="flex flex-col items-center relative">
-                  <Button color="dullPinkButton" className="absolute top-5 left-2" onClick={() => window.location.reload()}>
+                  <Button color="baseColorButton" className="absolute top-5 left-2" onClick={() => window.location.reload()}>
                     <AiOutlineArrowLeft size={20} />
                   </Button>
-                  <input type="search" placeholder="Search for products, brands, and more" className="bg-dull-pink placeholder:text-brown placeholder:text-ellipse grid w-full h-[60px] px-9 pe-12 py-[5px] rounded-md focus:outline-none" />
+                  <input type="search" placeholder="Search for products, brands, and more" className="bg-base-color placeholder:text-foreground-color placeholder:text-ellipse grid w-full h-[60px] px-9 pe-12 py-[5px] rounded-md focus:outline-none" />
                   {/* <div className="absolute top-1.5 right-9 ">
                     <AiOutlineClose  size={20} />
                   </div> */}
-                  <Button color="dullPinkButton" className="absolute top-5 right-5 ms-5">
+                  <Button color="baseColorButton" className="absolute top-5 right-5 ms-5">
                     <AiOutlineSearch size={20} />
                   </Button>
                 </form>
               </nav> :
 
-              <nav className="flex justify-around content-start items-center px-5 py-2 justify-items-stretch">
-                <Button color="dullPinkButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
+              <nav className=" !bg-base-color !shadow-md flex justify-around content-start items-center px-5 py-3 justify-items-stretch">
+                <Button color="baseColorButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
                   <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45 hamburgerMenuClose"}`}>
 
                   </span>
@@ -74,9 +83,9 @@ export const Navbar = () => {
                 </div>
                 <div className="flex justify-center content-center gap-3 items-center">
                   <form className="flex flex-col items-center sm:relative sm:grid sm:ps-2 sm:pe-3">
-                    <div className="sm:absolute sm:top-3 sm:left-4">
+                    <div className="sm:absolute sm:top-2 sm:left-4">
                       {
-                        screenWidth.current < 640 ? <Button color="dullPinkButton" onClick={() => setOpenMobileSearch(true)}>
+                        screenWidth.current < 640 ? <Button color="baseColorButton" onClick={() => setOpenMobileSearch(true)}>
                           <AiOutlineSearch size={20} />
                         </Button> :
                           <AiOutlineSearch size={20} />

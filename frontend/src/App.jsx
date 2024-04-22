@@ -18,16 +18,15 @@ function App() {
       <BrowserRouter>
         <AuthProvide>
           <GeoLocation />
-          <div className="mainBody grid grid-rows-[auto_1fr_auto]">
             <Navbar />
+          <div className="mainBody grid grid-rows-[auto_1fr_auto] bg-base-color">
             <Routes>
               <Route index path='/' element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
-            <Footer />
           </div>
-          {/* <MobileSidebar openMenu={openMenu} handleOpenMenu={setOpenMenu}/> */}
+          <Footer />
         </AuthProvide>
       </BrowserRouter>
 

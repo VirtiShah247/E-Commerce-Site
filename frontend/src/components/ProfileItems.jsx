@@ -21,10 +21,10 @@ export const ProfileItems = () => {
                         <div className="grid text-left content-center justify-center">
                             <h3>Welcome</h3>
                             <p>To access account and manage orders</p>
-                            <Button color="whiteButton" className="text-pink font-medium border-grey-500 border-2 p-2 mt-2" onClick={() => navigate("/login")}>LOGIN / SIGNUP</Button>
+                            <Button color="baseColorButton" className="text-secondary-color font-medium border-grey-500 border-2 p-2 mt-2" onClick={() => navigate("/login")}>LOGIN / SIGNUP</Button>
                         </div>
                         :
-                        <Button color="whiteButton" className="text-pink font-medium py-2 px-16" onClick={handleLogout}>Log out</Button>
+                        <Button color="baseColorButton" className="text-secondary-color font-medium py-2 px-16" onClick={handleLogout}>Log out</Button>
                 }
             </div>
         </Fragment>

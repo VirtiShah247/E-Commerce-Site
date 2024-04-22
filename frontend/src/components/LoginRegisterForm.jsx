@@ -178,7 +178,7 @@ export const LoginRegisterForm = () => {
         <Fragment>
             <Form ref={ref} size={"md"} onSubmit={(e) => handleFormSubmit(e)}>
                 <center>
-                    <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-white text-brown flex gap-3 p-3">
+                    <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-base-color text-foreground-color flex gap-3 p-3 shadow-lg">
                         {<FcGoogle size="30px" />}<span>Sign in with google</span>
                     </Button>
                 </center>
@@ -192,7 +192,7 @@ export const LoginRegisterForm = () => {
                     placeholder=" " labelName="Input phone number or email id">
                     {
                         errors.phoneNumberOrEmail && (
-                            <div className="text-red-500">{errors.phoneNumberOrEmail}</div>
+                            <div className="text-secondary-color">{errors.phoneNumberOrEmail}</div>
                         )
                     }
                 </Input>
@@ -203,12 +203,12 @@ export const LoginRegisterForm = () => {
                     onChange={(e) => handleChange(e.target)}
                     placeholder=" " labelName="Input password">
                     {
-                        errors.password && (<div className="text-red-500">{errors.password}</div>)
+                        errors.password && (<div className="text-secondary-color">{errors.password}</div>)
                     }
                 </Input>
 
-                <Links to={pageName === 'Login' ? "/register" : "/login"} color={"darkPinkLink"} size={"md"}>{formLinkName}</Links>
-                <Button id="registerButton" type="submit" color={"darkYellowButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16" disabled={loading}>
+                <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
+                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16" disabled={loading}>
                     {loading === true ? <LoadingIcons.Oval /> : pageName}
                 </Button>
             </Form>

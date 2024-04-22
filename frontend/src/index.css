@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 :root {
-  background-color: var(--off-white);
+  background-color: var(--base-color);
 }
+
+.overlayBackground{
+  filter: brightness(50%);
+}
+
+
 
 h1 {
   font-size: 32px;

@@ -7,13 +7,11 @@ const links = tv({
     base: "underline",
     variants: {
         color: {
-            offWhiteLink: "text-off-white",
-            lightPinkLink: "text-light-pink",
-            darkPinkLink: "text-dark-pink",
-            pinkLink: "text-pink",
-            brownishYellowLink: "text-brownish-yellow",
-            darkYellowLink: "text-dark-yellow",
-            brownLink: "text-brown"
+            baseColorLink: "text-base-color",
+            primaryColorLink: "text-primary-color",
+            secondaryColorLink: "text-secondary-color",
+            activeStateColorLink: "text-active-state-color",
+            foregroundColorLink: "text-foreground-color",
         },
         size: {
             sm: "text-sm",

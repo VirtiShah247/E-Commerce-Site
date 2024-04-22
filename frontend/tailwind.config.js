@@ -23,14 +23,14 @@ export default {
         slideIn: 'slideInFromLeft 300ms ease 0s 1 ',
       },
       colors: {
-        'off-white': '#FEF2F2',
-        'dull-pink': '#f6dddd',
-        'light-pink': '#e4c2c1',
-        'dark-pink': '#b6666f',
-        'pink': '#f53163',
-        'brownish-yellow': '#d1a080',
-        'dark-yellow': '#db844b',
-        'brown': '#440313',
+        'primary-color': '#6246ea',
+        'secondary-color': '#e45858',
+        'base-color': '#fffffe',
+        'foreground-color': '#2b2c34',
+        'active-state-color': '#d1d1e9'
+      },
+      boxShadow: {
+        '3xl': '0 0px 20px 0px rgba(0,0,0,0.3)'
       }
     },
   },

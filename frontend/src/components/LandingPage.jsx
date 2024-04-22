@@ -56,7 +56,7 @@ export const LandingPage = () => {
             <div className="relative">
                 {
                     landingPages.map(landingPage =>
-                        <div key={landingPage.id} className={`${landingPage.id == landingPageNo + 1 ? "grid" : "hidden"} "w-full text-black-500"`}>
+                        <div key={landingPage.id} className={`${landingPage.id == landingPageNo + 1 ? "grid" : "hidden"} "w-full text-foreground-color"`}>
                             {/* <div className="w-1/2 absolute grid gap-4 px-5 fade-animation">
                                 <h2>Lorem Ipsum</h2>
                                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci autem quam laborum inventore ut ex amet incidunt eum culpa exercitationem, quos itaque dolores placeat hic ullam repudiandae optio cumque! Exercitationem.</p>
@@ -97,7 +97,7 @@ export const LandingPage = () => {
                 <form action="" className="absolute bottom-0 left-1/2 space-x-3">
                     {
                         landingPages.map(landingPage => <button type="button" id={`radio${landingPage.id}`} key={landingPage.id} onClick={() => setLandingPageNo(landingPage.id - 1)}
-                            className={`w-3 h-3 bg-off-white rounded-full  hover:bg-dark-yellow  cursor-pointe focus:ring-1 focus:brown   ${landingPage.id == landingPageNo + 1 && "!bg-brown"}`}
+                            className={`w-3 h-3 bg-base-color rounded-full  hover:bg-secondary-color  cursor-pointe focus:ring-1 focus:secondary-color   ${landingPage.id == landingPageNo + 1 && "!bg-secondary-color"}`}
                         />)
                     }
                 </form>

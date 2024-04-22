@@ -3,7 +3,7 @@ import { Fragment, forwardRef } from "react";
 import { tv } from "tailwind-variants";
 const input = tv({
     slots: {
-        base: `peer bg-transparent outline outline-0 focus:outline-0 focus:border-2 disabled:bg-pink 
+        base: `peer bg-transparent outline outline-0 focus:outline-0 focus:border-2 disabled:bg-secondary-color 
         disabled:border-0 transition-all placeholder-shown:border-2
         placeholder-shown:border-dark-yellow border-2 
         border-dark-yellow border-t-transparent focus:border-t-transparent p-4 rounded-md w-[270px] lg:w-[350px]`,
@@ -19,7 +19,7 @@ const input = tv({
         after:rounded-tr-md after:border-t-2 peer-focus:after:border-t-2 after:border-r 
         peer-focus:after:border-r-2 after:pointer-events-none after:transition-all 
         peer-disabled:after:border-transparent peer-placeholder-shown:leading-[5] 
-        [&:not(peer-focus)]:leading-[1.3] peer-focus:text-brown text-sm 
+        [&:not(peer-focus)]:leading-[1.3] peer-focus:text-foreground-color text-sm 
         peer-focus:before:border-dark-yellow peer-focus:before:border-dark-yellow after:border-t-2
         after:border-dark-yellow
         peer-focus:after:!border-dark-yellow before:border-t-2 before:border-dark-yellow`
