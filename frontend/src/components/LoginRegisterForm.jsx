@@ -181,7 +181,7 @@ export const LoginRegisterForm = () => {
                 </Input>
 
                 <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
-                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16 text-[20px]" disabled={loading}>
+                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="py-3 px-16 text-[20px]" disabled={loading}>
                     {loading === true ? <LoadingIcons.Oval /> : pageName}
                 </Button>
             </Form>

@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useRef, useState } from "react"
-import Logo from "../assets/logo1.png";
+import Logo from "../assets/logo.png";
 import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch, AiOutlineArrowLeft } from "react-icons/ai";
 import { BsBag } from "react-icons/bs";
 import PropTypes from "prop-types";
