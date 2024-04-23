@@ -2,7 +2,6 @@ import cartImage from "../assets/login-page-cart-image.png";
 import AuthForm from "./AuthForm";
 import { useAuth } from "../hooks/useAuth";
 
-
 const LoginRegisterComponent = () => {
     const {pageName} = useAuth();
     const pageHeading = pageName === "Login" ? "Welcome Back. Please Log In To Your Account." : "Welcome to EFashionia. Please Register To a New Account.";

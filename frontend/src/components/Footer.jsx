@@ -22,13 +22,6 @@ export const Footer = () => {
                                     Delivery & Returns
                                 </li>
                             </Link>
-
-                            {/* <li>
-                                        Make An Appointment
-                                    </li>
-                                    <li>
-                                        Bespoke Services
-                                    </li> */}
                         </ul>
                     </div>
                     <div>
@@ -65,8 +58,6 @@ export const Footer = () => {
                                     Cookie Policy
                                 </li>
                             </Link>
-
-
                         </ul>
                     </div>
                     <div>

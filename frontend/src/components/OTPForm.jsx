@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const OTPForm = () => {
-  const { otp, setOtp } = useAuth();
+  const { otp, setOtp, authToken } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState();
   const ref = useRef();
@@ -19,14 +19,13 @@ export const OTPForm = () => {
     window.confirmationResult
       .confirm(otp)
       .then(async (response) => {
-        console.log("otp verify response: ", response);
         toast.success("OTP Verified. Register successful");
         navigate('/');
         setLoading(false);
-        sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+        sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+        authToken.current = response._tokenResponse.refreshToken;
       })
       .catch((error) => {
-        console.log(error);
         const errorMessage = error.code.split("/")[1];
         if (errorMessage === 'invalid-verification-code') {
           toast.error('Invalid OTP');

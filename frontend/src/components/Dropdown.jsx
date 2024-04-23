@@ -9,9 +9,6 @@ export const Dropdown = ({ children, className, ...props }) => {
   const ref = useRef();
   useEffect(()=>{
     const handleClickOutside = (event) => {
-        console.log(event.target);
-        console.log("ref: " + ref.current.contains(event.target));
-        console.log(children[1].props);
         if(ref.current && !ref.current.contains(event.target)){
             setIsOpen(false);
         }
@@ -25,24 +22,6 @@ export const Dropdown = ({ children, className, ...props }) => {
 
   }, [isOpen]);
 
-  // useEffect(()=>{
-  //   const handleClickInside = () => {
-  //     setIsOpen(false);
-  //   }
-  //   if(isOpen){
-  //     const childButtons = children[1].props.querySelectorAll("button");
-  //     const childLinks = children[1].querySelectorAll("a");
-
-  //     childButtons.forEach(button => button.addEventListener(handleClickInside));
-  //     childLinks.forEach(link => link.addEventListener(handleClickInside));
-
-  //     return () => {
-  //       childButtons.forEach(button => button.removeEventListener(handleClickInside));
-  //       childLinks.forEach(link => link.removeEventListener(handleClickInside));
-  //   }
-  //   }
-   
-  // },[isOpen]);
  
   return (
     <div ref={ref} className={`relative ${className}`} {...props}>

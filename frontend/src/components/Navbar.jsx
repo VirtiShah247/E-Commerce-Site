@@ -16,9 +16,7 @@ export const Navbar = () => {
   const commonMenuCss = "bg-foreground-color h-[0.2rem] block w-[30px] transition ease transform duration-300";
   const screenWidth = useRef(window.innerWidth);
   const openMenuRef = useRef(openMenu);
-  console.log(screenWidth);
   const handleMenu = useCallback(() => {
-    console.log("open menu: " + openMenu);
     setOpenMenu(openMenu => (!openMenu));
     openMenuRef.current = !openMenu;
   }, [openMenu])
@@ -42,9 +40,6 @@ export const Navbar = () => {
                     <AiOutlineArrowLeft size={20} />
                   </Button>
                   <input type="search" placeholder="Search for products, brands, and more" className="bg-base-color placeholder:text-foreground-color placeholder:text-ellipse grid w-full h-[60px] px-9 pe-12 py-[5px] rounded-md focus:outline-none" />
-                  {/* <div className="absolute top-1.5 right-9 ">
-                    <AiOutlineClose  size={20} />
-                  </div> */}
                   <Button color="baseColorButton" className="absolute top-5 right-5 ms-5">
                     <AiOutlineSearch size={20} />
                   </Button>
@@ -102,18 +97,6 @@ export const Navbar = () => {
                       <div>Profile</div>
                     </div>
                     <ProfileItems />
-                    {/* <div className=" text-center grid content-center justify-center ">
-                      {
-                        authToken === null ? 
-                        <div className="grid">
-                          <h3>Welcome</h3>
-                          <p>To access account and manage orders</p>
-                      <Button color="whiteButton" className="text-pink font-medium border-grey-500 border-2 p-2 mt-2" onClick={()=>navigate("/login")}>LOGIN / SIGNUP</Button>
-                        </div>
-                        :
-                      <Button color="whiteButton" className="text-pink font-medium" onClick={handleLogout}>Log out</Button>
-                      }
-                    </div> */}
                   </Dropdown>
                   <Link to="/wishlist" className="hover:opacity-50">
                     <div className="flex flex-col items-center w-full">

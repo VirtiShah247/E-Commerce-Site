@@ -8,16 +8,16 @@ export const ProfileItems = () => {
     const { authToken } = useAuth();
     const navigate = useNavigate();
     const handleLogout = () => {
-        console.log("session storage: " + authToken);
         auth.signOut();
         sessionStorage.removeItem("Auth Token");
+        authToken.current = null;
         window.location.reload();
     }
     return (
         <Fragment>
             <div className=" text-center grid content-center justify-center ">
                 {
-                    authToken === null ?
+                    authToken.current === null ?
                         <div className="grid text-left content-center justify-center">
                             <h3>Welcome</h3>
                             <p>To access account and manage orders</p>

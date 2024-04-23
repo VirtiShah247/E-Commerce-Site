@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-// import { isValidNumber } from 'libphonenumber-js'
 
 const phoneNumberRegex = /^\d{10,15}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

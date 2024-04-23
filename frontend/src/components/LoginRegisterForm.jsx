@@ -6,21 +6,19 @@ import { Input } from "../utils/Input";
 import { Links } from "../utils/Links";
 import LoadingIcons from "react-loading-icons";
 import { useAuth } from "../hooks/useAuth";
-// import { HandleGoogleSignIn } from "./HandleGoogleSignIn";
 import { isOnlyDigit } from "../helperFunctions/validation/isOnlyDigit";
 import { toast } from "react-toastify";
 import { GoogleAuthProvider, RecaptchaVerifier, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase/config";
 import { useInputChange } from "../hooks/useInputChange";
-// import { Formik } from "formik";
 import { formValidationSchema } from "../helperFunctions/validation/formValidationSchema";
 import { useNavigate } from "react-router-dom";
 
 export const LoginRegisterForm = () => {
     const ref = useRef();
-    const { pageName, setShowOTP } = useAuth();
+    const { pageName, setShowOTP, authToken } = useAuth();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState();
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const formLinkName = pageName === "Login" ? "New User? Register" : "Already Registered? Login";
     const [formDetails, handleChange] = useInputChange();
@@ -31,8 +29,7 @@ export const LoginRegisterForm = () => {
                 "registerButton",
                 {
                     size: "invisible",
-                    callback: (response) => {
-                        console.log("captcha verify: ", response);
+                    callback: () => {
                         phonePasswordAuthentication();
                     },
                     "expired-callback": () => { },
@@ -42,15 +39,11 @@ export const LoginRegisterForm = () => {
     }
 
     const phonePasswordAuthentication = () => {
-        console.log("Phone no");
         onCaptchVerify();
 
         const appVerifier = window.recaptchaVerifier;
 
         const formatPh = "+91" + formDetails.phoneNumberOrEmail;
-        console.log("app verifier: ", appVerifier);
-        console.log("format phone: ", formDetails.phoneNumberOrEmail);
-
         signInWithPhoneNumber(auth, formatPh, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
@@ -59,7 +52,6 @@ export const LoginRegisterForm = () => {
                 toast.success("OTP sended successfully!");
             })
             .catch((error) => {
-                console.log("Sign in with phone no error: ", error);
                 const errorMessage = error.code.split("/")[1];
                 if (errorMessage === 'invalid-phone-number') {
                     toast.error('Please check the Phone Number');
@@ -74,19 +66,17 @@ export const LoginRegisterForm = () => {
     }
 
     const emailPasswordAuthentication = () => {
-        console.log("email");
         if (pageName === 'Register') {
             createUserWithEmailAndPassword(auth, formDetails.phoneNumberOrEmail, formDetails.password)
                 .then((response) => {
-                    console.log("Resp: ", response);
                     toast.success("Register successful");
                     navigate('/');
                     setLoading(false);
                     sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+                    authToken.current = response._tokenResponse.refreshToken;
                 })
                 .catch((error) => {
                     const errorMessage = error.code.split("/")[1];
-                    console.log("Register Error: ", error);
                     if (errorMessage === 'email-already-in-use') {
                         toast.error('Email Already in Use');
                         setLoading(false);
@@ -103,10 +93,10 @@ export const LoginRegisterForm = () => {
                     toast.success("Login successful");
                     navigate('/');
                     setLoading(false);
-                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken);
+                    authToken.current = response._tokenResponse.refreshToken;
                 })
                 .catch((error) => {
-                    console.log("Login Error: ", error);
                     const errorMessage = error.code.split("/")[1];
                     if (errorMessage === 'invalid-credential') {
                         toast.error('Please check the Credential');
@@ -130,47 +120,30 @@ export const LoginRegisterForm = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
-        console.log(formDetails);
         try {
-            const response = await formValidationSchema.validate(formDetails, { abortEarly: false });
-            console.log(response);
+            await formValidationSchema.validate(formDetails, { abortEarly: false });
             isOnlyDigit(formDetails.phoneNumberOrEmail) ? phonePasswordAuthentication() : emailPasswordAuthentication();
         }
         catch (error) {
             const newErrors = {};
-            console.log(error.inner);
             error.inner.forEach((err) => {
                 newErrors[err.path] = err.message;
             });
             setErrors(newErrors);
             setLoading(false);
         }
-        // firebase authentication
     }
     const handleGoogleSignIn = () => {
         signInWithPopup(auth, provider)
             .then((response) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(response);
                 const token = credential.accessToken;
-                // The signed-in user info.
-                const user = response.user;
-                // IdP data available using getAdditionalUserInfo(result)
-                // ...
-                console.log("user: ", user);
                 navigate("/");
                 toast.success("Google sign in successful");
                 sessionStorage.setItem('Auth Token', token);
+                authToken.current = token;
             }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
                 const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
-                console.log(errorCode, errorMessage, email, credential);
                 toast.error(errorMessage);
             });
     }
@@ -208,7 +181,7 @@ export const LoginRegisterForm = () => {
                 </Input>
 
                 <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
-                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16" disabled={loading}>
+                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="justify-self-center py-3 px-16 text-[20px]" disabled={loading}>
                     {loading === true ? <LoadingIcons.Oval /> : pageName}
                 </Button>
             </Form>
