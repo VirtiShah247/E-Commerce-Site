@@ -41,16 +41,17 @@ h6 {
   font-size: 10.72px;
   font-weight: 500;
 }
-.fade-animation {
-  animation: fadeAnim 0.5s ease-out;
+
+.slick-dots{
+  bottom: 1rem;
+  
 }
-@keyframes fadeAnim {
-  from {
-    transform: translateX(45px);
-  }
-  to {
-    transform: translateX(0);
-  }
+.slick-dots li button::before {
+  font-size: small;
+}
+.slick-dots li.slick-active button::before {
+  color: red;
+
 }
 
 
