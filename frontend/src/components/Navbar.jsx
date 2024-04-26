@@ -31,7 +31,7 @@ export const Navbar = () => {
   return (
     <Fragment>
       <header>
-        <div className="shadow-lg mb-5">
+        <div className="shadow-lg mb-12">
           {
             openMobileSearch ?
               <nav className="w-full m-0 p-0 bg-base-color shadow-2xl">
@@ -46,7 +46,7 @@ export const Navbar = () => {
                 </form>
               </nav> :
 
-              <nav className=" !bg-base-color !shadow-md flex justify-around content-start items-center px-5 py-3 justify-items-stretch">
+              <nav className=" !bg-base-color !shadow-md flex justify-around content-start items-center px-5 py-4 justify-items-stretch">
                 <Button color="baseColorButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
                   <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45 hamburgerMenuClose"}`}>
 
