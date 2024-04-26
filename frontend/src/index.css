@@ -50,8 +50,7 @@ h6 {
   font-size: small;
 }
 .slick-dots li.slick-active button::before {
-  color: red;
-
+  @apply text-secondary-color;
 }
 
 

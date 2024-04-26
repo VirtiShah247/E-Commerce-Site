@@ -4,10 +4,10 @@ import { tv } from "tailwind-variants";
 const input = tv({
     slots: {
         base: `focus:ring-0 focus:border-foreground-color peer bg-transparent outline outline-0 focus:outline focus:outline-1 focus:border-1 disabled:bg-secondary-color 
-        disabled:border-0 transition-all placeholder-shown:border-1
+        disabled:border-0 transition-all placeholder-shown:border-2
         placeholder-shown:border-foreground-color border-2 
-        border-secondary-color border-t-transparent focus:border-t-transparent p-4 rounded-md w-[270px] lg:w-[350px] `,
-        label: `flex w-[270px] md:w-[350px] select-none pointer-events-none absolute left-0 font-normal
+        border-secondary-color border-t-transparent focus:border-t-transparent p-4 rounded-md w-[250px] md:w-[350px] `,
+        label: `flex w-[250px] md:w-[350px] select-none pointer-events-none absolute left-0 font-normal
         !overflow-visible truncate leading-tight peer-focus:leading-tight 
         peer-disabled:text-transparent transition-all -top-1.5  before:content[' '] before:block
         before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 

@@ -21,7 +21,7 @@ export const ProfileItems = () => {
                         <div className="grid text-left content-center justify-center">
                             <h3>Welcome</h3>
                             <p>To access account and manage orders</p>
-                            <Button color="baseColorButton" className="text-secondary-color font-medium border-grey-500 border-2 p-2 mt-2 rounded-full" onClick={() => navigate("/login")}>LOGIN / SIGNUP</Button>
+                            <Button color="baseColorButton" className="text-secondary-color font-medium border-secondary-color border-2 p-2 mt-2 rounded-full" onClick={() => navigate("/login")}>LOGIN / SIGNUP</Button>
                         </div>
                         :
                         <Button color="baseColorButton" className="text-secondary-color font-medium" onClick={handleLogout}>Log out</Button>

@@ -46,7 +46,7 @@ export const Navbar = () => {
                 </form>
               </nav> :
 
-              <nav className=" !bg-base-color !shadow-md flex justify-around content-start items-center px-5 py-4 justify-items-stretch">
+              <nav className=" !bg-base-color !shadow-md flex justify-around content-start items-center px-5 py-4 justify-items-stretch w-full">
                 <Button color="baseColorButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
                   <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45 hamburgerMenuClose"}`}>
 
@@ -62,7 +62,7 @@ export const Navbar = () => {
                   <img src={Logo} alt="Efashionia" />
                 </Link>
 
-                <div className="justify-center gap-5 lg:gap-10 px-3 hidden md:flex">
+                <div className="justify-center md:gap-4 lg:gap-10 px-3 hidden md:flex">
                   <Link to="/men" className="hover:opacity-50">
                     <div>Men</div>
                   </Link>
@@ -76,7 +76,7 @@ export const Navbar = () => {
                     <div>Beauty</div>
                   </Link>
                 </div>
-                <div className="flex justify-center content-center gap-3 items-center">
+                <div className="flex justify-center content-center items-center gap-2 md:gap-3 lg:gap-4">
                   <form className="flex flex-col items-center sm:relative sm:grid sm:ps-2 sm:pe-3">
                     <div className="sm:absolute sm:top-2 sm:left-4">
                       {
@@ -87,14 +87,14 @@ export const Navbar = () => {
 
                       }
                     </div>
-                    <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid sm:w-[350px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
+                    <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid lg:w-[350px] sm:w-[250px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
                   </form>
                   <Dropdown className="hidden sm:block">
                     <div className="hidden sm:flex-col sm:items-center sm:w-full sm:flex">
                       <div>
                         <AiOutlineUser size={20} />
                       </div>
-                      <div>Profile</div>
+                      <div className="lg:block hidden">Profile</div>
                     </div>
                     <ProfileItems />
                   </Dropdown>
@@ -103,7 +103,7 @@ export const Navbar = () => {
                       <div>
                         <AiOutlineHeart size={20} />
                       </div>
-                      <div className="hidden sm:block">Whislist</div>
+                      <div className="hidden lg:block">Whislist</div>
                     </div>
                   </Link>
                   <Link to="/bag" className="hover:opacity-50">
@@ -111,7 +111,7 @@ export const Navbar = () => {
                       <div>
                         <BsBag size={20} />
                       </div>
-                      <div className="hidden sm:block">Bag</div>
+                      <div className="hidden lg:block">Bag</div>
                     </div>
                   </Link>
                 </div>

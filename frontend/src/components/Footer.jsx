@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 export const Footer = () => {
     return (
         <Fragment>
-            <footer className="bg-active-state-color text-foreground-color shadow-3xl w-full grid sm:flex sm:flex-column sm:justify-evenly gap-20 sm:gap-5  place-items-center pt-[70px] pb-[40px] px-4">
+            <footer className="bg-active-state-color text-foreground-color shadow-3xl w-full grid sm:flex sm:flex-column sm:justify-evenly gap-20 sm:gap-5 place-items-center pt-[70px] pb-[40px] px-4 mt-12">
                 <div className="grid grid-cols-3 gap-3 sm:gap-10 text-wrap text-start ">
                     <div>
                         <h4 className="mb-2 uppercase">Customer Service</h4>

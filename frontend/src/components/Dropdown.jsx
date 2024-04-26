@@ -25,7 +25,7 @@ export const Dropdown = ({ children, className, ...props }) => {
  
   return (
     <div ref={ref} className={`relative ${className}`} {...props}>
-      <Button color="baseColorButton" onClick={() => setIsOpen(!isOpen)} className={`rounded-none ${isOpen && "border-b-[3px] border-pink"}`}>
+      <Button color="baseColorButton" onClick={() => setIsOpen(!isOpen)} className={`rounded-none ${isOpen && "border-b-[3px] border-secondary-color"}`}>
         {children[0]}
       </Button>
       {isOpen && (

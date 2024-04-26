@@ -151,7 +151,7 @@ export const LoginRegisterForm = () => {
         <Fragment>
             <Form ref={ref} size={"md"} onSubmit={(e) => handleFormSubmit(e)}>
                 <center>
-                    <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-base-color text-foreground-color flex gap-3 p-3 shadow-lg">
+                    <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-full max-w-[300px] mx-auto bg-base-color text-foreground-color flex gap-3 p-3 shadow-lg">
                         {<FcGoogle size="30px" />}<span>Sign in with google</span>
                     </Button>
                 </center>

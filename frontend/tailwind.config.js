@@ -11,7 +11,7 @@ export default {
       keyframes: {
         slideInFromLeft: {
           '0%': {
-            transform: 'translateX(-20%)'
+            transform: 'translateX(-40%)'
           },
           '100%': {
             transform: 'translateX(0)'
@@ -20,7 +20,7 @@ export default {
         
       },
       animation: {
-        slideIn: 'slideInFromLeft 300ms ease 0s 1 ',
+        slideIn: 'slideInFromLeft 300ms ease-in',
       },
       colors: {
         'primary-color': '#6246ea',
