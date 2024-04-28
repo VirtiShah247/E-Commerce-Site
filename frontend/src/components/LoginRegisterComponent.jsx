@@ -1,9 +1,18 @@
 import cartImage from "../assets/login-page-cart-image.png";
-import AuthForm from "./AuthForm";
-import { useAuth } from "../hooks/useAuth";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context";
+import { ToastContainer } from "react-toastify";
+import { OTPForm } from "./OTPForm";
+import { AuthForm } from "./AuthForm";
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginRegisterComponent = () => {
-    const { pageName } = useAuth();
+    const { pageName } = useContext(AuthContext);
+    const [showOTP, setShowOTP] = useState(false);
+    const handleShowOTP = (value) => {
+        setShowOTP(value);
+    }
+    const otpSettings = { navigateTo: "/", OTPLength: 6, otpType: "number", disabledStatus: false, autoFocusStatus: true };
     const pageHeading = pageName === "Login" ? "Welcome Back. Please Log In To Your Account." : "Welcome to EFashionia. Please Register To a New Account.";
     return (
         <>
@@ -14,10 +23,17 @@ const LoginRegisterComponent = () => {
                     </div>
                     <div className="rightContent grid justify-center content-center max-w-full px-0 md:px-[79px]">
                         <h2>{pageHeading}</h2>
-                        <AuthForm></AuthForm>
+                        {
+                            showOTP ? (<>
+                                <OTPForm {...otpSettings} />
+                            </>) : (<>
+                                <AuthForm handleShowOTP={handleShowOTP} />
+                            </>)
+                        }
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }
