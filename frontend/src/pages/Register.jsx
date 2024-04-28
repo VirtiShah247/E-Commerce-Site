@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import LoginRegisterComponent from "../components/LoginRegisterComponent"
-import { useAuth } from "../hooks/useAuth";
+import { AuthContext } from "../context";
 
 const Register = () => {
-  const {setPageName} = useAuth();
+  const {setPageName} =  useContext(AuthContext);
     setPageName("Register");
   return (
     <>

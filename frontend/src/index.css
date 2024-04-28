@@ -53,4 +53,7 @@ h6 {
   }
 }
 
+.otp-container input[type='tel']{
+  width: 33px !important;
+}
 

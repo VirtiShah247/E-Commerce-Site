@@ -2,11 +2,12 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../firebase/config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useContext } from "react";
+import { AuthContext } from "../context";
 
 export const HandleGoogleSignIn = () => {
   const navigate = useNavigate();
-  const {authToken} = useAuth();
+  const { authToken } =  useContext(AuthContext);
     signInWithPopup(auth, provider)
       .then((response) => {
         const credential = GoogleAuthProvider.credentialFromResult(response);

@@ -1,17 +1,14 @@
 import { useState } from "react";
 
-export const useInputChange = () => {
-    const [ formDetails, setFormDetails ] = useState({
-            'phoneNumberOrEmail': "",
-            'password': ""
-        });
+export const useInputChange = (initialDetails) => {
+    const [ details, setDetails ] = useState(initialDetails);
     const handleChange = async({name, value}) => {
-        setFormDetails({
-            ...formDetails,
+        setDetails({
+            ...details,
             [name]: value
         })
     }
     
 
-    return [formDetails, handleChange];
+    return [details, handleChange];
 }

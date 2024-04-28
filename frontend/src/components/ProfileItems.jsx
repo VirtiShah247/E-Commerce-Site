@@ -1,11 +1,11 @@
-import { Fragment } from "react"
-import { useAuth } from "../hooks/useAuth"
+import { Fragment, useContext } from "react"
 import { Button } from "../utils/Button";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
+import { AuthContext } from "../context";
 
 export const ProfileItems = () => {
-    const { authToken } = useAuth();
+    const { authToken } =  useContext(AuthContext);
     const navigate = useNavigate();
     const handleLogout = () => {
         auth.signOut();
