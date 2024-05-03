@@ -31,10 +31,10 @@ export const Navbar = () => {
   return (
     <Fragment>
       <header>
-        <div className="shadow-lg mb-12">
+        <div className="fixed bg-base-color w-full shadow-md z-50">
           {
             openMobileSearch ?
-              <nav className="w-full m-0 p-0 bg-base-color shadow-2xl">
+              <nav className="w-full m-0 p-0 bg-base-color/70 shadow-2xl">
                 <form className="flex flex-col items-center relative">
                   <Button color="baseColorButton" className="absolute top-5 left-2" onClick={() => window.location.reload()}>
                     <AiOutlineArrowLeft size={20} />
@@ -46,74 +46,76 @@ export const Navbar = () => {
                 </form>
               </nav> :
 
-              <nav className=" !bg-base-color !shadow-md flex justify-around content-start items-center px-5 py-4 justify-items-stretch w-full">
-                <Button color="baseColorButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
-                  <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45 hamburgerMenuClose"}`}>
+              <nav className="!bg-base-color/70 !shadow-md w-full">
+                <div className="flex justify-around content-start items-center justify-items-stretch px-5 py-4">
+                  <Button color="baseColorButton" className={`grid gap-y-1 sm:hidden ${openMenu ? "hamburgerMenuClose" : "hamburgerMenu"}`} onClick={handleMenu}>
+                    <span className={`${commonMenuCss} ${openMenu && "translate-y-[5px] rotate-45 hamburgerMenuClose"}`}>
 
-                  </span>
-                  <span className={`${commonMenuCss} ${openMenu && "opacity-0 hamburgerMenuClose"}`}>
+                    </span>
+                    <span className={`${commonMenuCss} ${openMenu && "opacity-0 hamburgerMenuClose"}`}>
 
-                  </span>
-                  <span className={`${commonMenuCss} ${openMenu && "-translate-y-[9px] -rotate-45 hamburgerMenuClose"}`}>
+                    </span>
+                    <span className={`${commonMenuCss} ${openMenu && "-translate-y-[9px] -rotate-45 hamburgerMenuClose"}`}>
 
-                  </span>
-                </Button>
-                <Link className="max-w-[150px] min-w-[50px]" to="/">
-                  <img src={Logo} alt="Efashionia" />
-                </Link>
-
-                <div className="justify-center md:gap-4 lg:gap-10 px-3 hidden md:flex">
-                  <Link to="/men" className="hover:opacity-50">
-                    <div>Men</div>
+                    </span>
+                  </Button>
+                  <Link className="max-w-[150px] min-w-[50px]" to="/">
+                    <img src={Logo} alt="Efashionia" />
                   </Link>
-                  <Link to="/women" className="hover:opacity-50">
-                    <div>Women</div>
-                  </Link>
-                  <Link to="/kids" className="hover:opacity-50">
-                    <div>Kids</div>
-                  </Link>
-                  <Link to="/beauty" className="hover:opacity-50">
-                    <div>Beauty</div>
-                  </Link>
-                </div>
-                <div className="flex justify-center content-center items-center gap-2 md:gap-3 lg:gap-4">
-                  <form className="flex flex-col items-center sm:relative sm:grid sm:ps-2 sm:pe-3">
-                    <div className="sm:absolute sm:top-2 sm:left-4">
-                      {
-                        screenWidth.current < 640 ? <Button color="baseColorButton" onClick={() => setOpenMobileSearch(true)}>
-                          <AiOutlineSearch size={20} />
-                        </Button> :
-                          <AiOutlineSearch size={20} />
 
-                      }
-                    </div>
-                    <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid lg:w-[350px] sm:w-[250px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
-                  </form>
-                  <Dropdown className="hidden sm:block">
-                    <div className="hidden sm:flex-col sm:items-center sm:w-full sm:flex">
-                      <div>
-                        <AiOutlineUser size={20} />
+                  <div className="justify-center md:gap-4 lg:gap-10 px-3 hidden md:flex">
+                    <Link to="/men" className="hover:opacity-50">
+                      <div>Men</div>
+                    </Link>
+                    <Link to="/women" className="hover:opacity-50">
+                      <div>Women</div>
+                    </Link>
+                    <Link to="/kids" className="hover:opacity-50">
+                      <div>Kids</div>
+                    </Link>
+                    <Link to="/beauty" className="hover:opacity-50">
+                      <div>Beauty</div>
+                    </Link>
+                  </div>
+                  <div className="flex justify-center content-center items-center gap-2 md:gap-3 lg:gap-4">
+                    <form className="flex flex-col items-center sm:relative sm:grid sm:ps-2 sm:pe-3">
+                      <div className="sm:absolute sm:top-2 sm:left-4">
+                        {
+                          screenWidth.current < 640 ? <Button color="baseColorButton" onClick={() => setOpenMobileSearch(true)}>
+                            <AiOutlineSearch size={20} />
+                          </Button> :
+                            <AiOutlineSearch size={20} />
+
+                        }
                       </div>
-                      <div className="lg:block hidden">Profile</div>
-                    </div>
-                    <ProfileItems />
-                  </Dropdown>
-                  <Link to="/wishlist" className="hover:opacity-50">
-                    <div className="flex flex-col items-center w-full">
-                      <div>
-                        <AiOutlineHeart size={20} />
+                      <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid lg:w-[350px] sm:w-[250px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
+                    </form>
+                    <Dropdown className="hidden sm:block">
+                      <div className="hidden sm:flex-col sm:items-center sm:w-full sm:flex">
+                        <div>
+                          <AiOutlineUser size={20} />
+                        </div>
+                        <div className="lg:block hidden">Profile</div>
                       </div>
-                      <div className="hidden lg:block">Whislist</div>
-                    </div>
-                  </Link>
-                  <Link to="/bag" className="hover:opacity-50">
-                    <div className="flex flex-col items-center">
-                      <div>
-                        <BsBag size={20} />
+                      <ProfileItems />
+                    </Dropdown>
+                    <Link to="/wishlist" className="hover:opacity-50">
+                      <div className="flex flex-col items-center w-full">
+                        <div>
+                          <AiOutlineHeart size={20} />
+                        </div>
+                        <div className="hidden lg:block">Whislist</div>
                       </div>
-                      <div className="hidden lg:block">Bag</div>
-                    </div>
-                  </Link>
+                    </Link>
+                    <Link to="/bag" className="hover:opacity-50">
+                      <div className="flex flex-col items-center">
+                        <div>
+                          <BsBag size={20} />
+                        </div>
+                        <div className="hidden lg:block">Bag</div>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </nav>
           }
