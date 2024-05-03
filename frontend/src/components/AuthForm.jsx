@@ -13,11 +13,12 @@ import { useInputChange } from "../hooks/useInputChange";
 import { formValidationSchema } from "../helperFunctions/validation/formValidationSchema";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PropTypes from "prop-types";
 
-export const AuthForm = ({handleShowOTP}) => {
+export const AuthForm = ({ handleShowOTP }) => {
     const ref = useRef();
-    const { pageName, authToken } =  useContext(AuthContext);
+    const { pageName, authToken } = useContext(AuthContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
@@ -26,6 +27,7 @@ export const AuthForm = ({handleShowOTP}) => {
         'phoneNumberOrEmail': "",
         'password': ""
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     const onCaptchVerify = () => {
         if (!window.recaptchaVerifier) {
@@ -153,7 +155,7 @@ export const AuthForm = ({handleShowOTP}) => {
     }
     return (
         <Fragment>
-            <Form ref={ref} size={"md"} onSubmit={(e) => handleFormSubmit(e)}>
+            <Form ref={ref} size={"md"} onSubmit={(e) => handleFormSubmit(e)} className="grid justify-center content-center justify-self-center">
                 <center>
                     <Button onClick={handleGoogleSignIn} ref={ref} className="mt-[10px] w-[300px] bg-base-color text-foreground-color flex gap-3 p-3 shadow-lg">
                         {<FcGoogle size="30px" />}<span>Sign in with google</span>
@@ -162,34 +164,49 @@ export const AuthForm = ({handleShowOTP}) => {
                 <div className="justify-self-center">
                     OR
                 </div>
-                <Input type="text"
-                    id="phoneNumberOrEmail" values={details.phoneNumberOrEmail}
-                    name="phoneNumberOrEmail"
-                    onChange={(e) => handleChange(e.target)}
-                    placeholder=" " labelName="Input phone number or email id">
-                    {
-                        errors.phoneNumberOrEmail && (
-                            <div className="text-secondary-color">{errors.phoneNumberOrEmail}</div>
-                        )
-                    }
-                </Input>
 
-                <Input type="password"
-                    id="password" values={details.password}
-                    name="password"
-                    onChange={(e) => handleChange(e.target)}
-                    placeholder=" " labelName="Input password">
-                    {
-                        errors.password && (<div className="text-secondary-color">{errors.password}</div>)
-                    }
-                </Input>
+                    <Input type="text"
+                        id="phoneNumberOrEmail" values={details.phoneNumberOrEmail}
+                        name="phoneNumberOrEmail"
+                        onChange={(e) => handleChange(e.target)}
+                        placeholder=" " labelName="Input phone number or email id"
+                        className="items-center"
+                        ref={ref}>
+                        {
+                            errors.phoneNumberOrEmail && (
+                                <div className="text-secondary-color">{errors.phoneNumberOrEmail}</div>
+                            )
+                        }
+                    </Input>
 
-                <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
-                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="py-3 px-16 text-[20px]" disabled={loading}>
-                    {loading === true ? <LoadingIcons.Oval /> : pageName}
-                </Button>
+
+                    <Input type={showPassword === true ? "text" : "password"}
+                        id="password" values={details.password}
+                        name="password"
+                        onChange={(e) => handleChange(e.target)}
+                        placeholder=" " labelName="Input password">
+                        <div className="absolute top-5 right-5"
+                            ref={ref}>
+                            {
+                                showPassword === true ? <Button type="button" ref={ref} color={"baseColorButton"} onClick={() => setShowPassword(false)}>
+                                    <AiFillEye size={20} />
+                                </Button> : <Button type="button" ref={ref} color={"baseColorButton"} onClick={() => setShowPassword(true)}>
+                                    <AiFillEyeInvisible size={20} />
+                                </Button>
+                            }
+
+                        </div>
+                        {
+                            errors.password && (<div className="text-secondary-color">{
+                                errors.password.split("\n").map((str, index) => <p key={index}>{str}</p>)
+                            }</div>)
+                        }
+                    </Input>
+                    <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
+                    <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="py-3 px-16 text-[20px]" disabled={loading}>
+                        {loading === true ? <LoadingIcons.Oval /> : pageName}
+                    </Button>
             </Form>
-
         </Fragment>
     )
 }

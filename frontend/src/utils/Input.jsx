@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
-import { Fragment, forwardRef } from "react";
+import { Fragment, forwardRef, useEffect, useState } from "react";
 import { tv } from "tailwind-variants";
+import { formValidationSchema } from "../helperFunctions/validation/formValidationSchema";
 const input = tv({
     slots: {
         base: `focus:ring-0 focus:border-foreground-color peer bg-transparent outline outline-0 focus:outline focus:outline-1 focus:border-1 disabled:bg-secondary-color 
         disabled:border-0 transition-all placeholder-shown:border-2
         placeholder-shown:border-foreground-color border-2 
-        border-secondary-color border-t-transparent focus:border-t-transparent p-4 rounded-md w-[250px] md:w-[350px] `,
-        label: `flex w-[250px] md:w-[350px] select-none pointer-events-none absolute left-0 font-normal
+        border-secondary-color border-t-transparent focus:border-t-transparent p-4 rounded-md w-auto max-w-[350px] appearance-none`,
+        label: `flex w-auto max-w-[350px] select-none pointer-events-none absolute left-0 font-normal
         !overflow-visible truncate leading-tight peer-focus:leading-tight 
         peer-disabled:text-transparent transition-all -top-1.5  before:content[' '] before:block
         before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 
@@ -27,20 +28,40 @@ const input = tv({
     }
 })
 const { base, label } = input();
-export const Input = forwardRef(function Input({ labelName, children, ...props }, ref) {
-
+export const Input = forwardRef(function Input({ labelName, id, values, children, ...props }, ref) {
+    const [errors, setErrors] = useState({});
+    // console.log("children " + children !== undefined && children[0]);
+    console.log("values" + values);
+    useEffect(() => {
+        const handleInputValid = async () => {
+            try {
+                await formValidationSchema.validate(values, { abortEarly: false });
+            }
+            catch (error) {
+                const newErrors = {};
+                error.inner.forEach((err) => {
+                    newErrors[err.path] = err.message;
+                });
+                setErrors(newErrors);
+            }
+        }
+       handleInputValid();
+    }, [values])
     return (
         <Fragment>
-            <div>
-                <div className="relative justify-self-center sm:justify-self-start">
-                    <input ref={ref}  {...props}
-                        className={base()} />
-                    <label
-                        className={label()}>
-                        {labelName}
-                    </label>
-                </div>
+            <div className="relative flex flex-col items-stretch">
+                <input ref={ref}  {...props}
+                    className={base()} />
+                <label
+                    className={label()}>
+                    {labelName}
+                </label>
                 {children}
+                {
+                    errors[id] && (<div className="text-secondary-color">{
+                        errors[id].split("\n").map((str, index) => <p key={index}>{str}</p>)
+                    }</div>)
+                }
             </div>
 
         </Fragment>
@@ -51,5 +72,7 @@ export const Input = forwardRef(function Input({ labelName, children, ...props }
 Input.propTypes = {
     labelName: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
+    values: PropTypes.node.isRequired,
+    id: PropTypes.node.isRequired,
 };
 
