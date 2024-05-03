@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import {getFirestore} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -15,4 +16,4 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const provider = new GoogleAuthProvider(); 
-
+export const firestoreDb = getFirestore();

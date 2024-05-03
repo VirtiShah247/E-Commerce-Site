@@ -31,7 +31,7 @@ const { base, label } = input();
 export const Input = forwardRef(function Input({ labelName, id, values, children, ...props }, ref) {
     const [errors, setErrors] = useState({});
     // console.log("children " + children !== undefined && children[0]);
-    console.log("values" + values);
+    // console.log("values" + values);
     useEffect(() => {
         const handleInputValid = async () => {
             try {

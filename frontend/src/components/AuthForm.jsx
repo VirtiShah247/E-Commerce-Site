@@ -8,13 +8,14 @@ import LoadingIcons from "react-loading-icons";
 import { isOnlyDigit } from "../helperFunctions/validation/isOnlyDigit";
 import { toast } from "react-toastify";
 import { GoogleAuthProvider, RecaptchaVerifier, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPhoneNumber, signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../firebase/config";
+import { auth, firestoreDb, provider } from "../firebase/config";
 import { useInputChange } from "../hooks/useInputChange";
 import { formValidationSchema } from "../helperFunctions/validation/formValidationSchema";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import PropTypes from "prop-types";
+import { collection, getDocs } from "firebase/firestore";
 
 export const AuthForm = ({ handleShowOTP }) => {
     const ref = useRef();
@@ -28,6 +29,7 @@ export const AuthForm = ({ handleShowOTP }) => {
         'password': ""
     });
     const [showPassword, setShowPassword] = useState(false);
+    const callingCode = useRef();
 
     const onCaptchVerify = () => {
         if (!window.recaptchaVerifier) {
@@ -44,12 +46,24 @@ export const AuthForm = ({ handleShowOTP }) => {
         }
     }
 
-    const phonePasswordAuthentication = () => {
+    const getCallingCode = async() => {
+        const dataCollection = collection(firestoreDb,"country");
+        const countryDocs = await getDocs(dataCollection);
+        const countryDetails = countryDocs.docs.map((doc) => doc.data());
+        const code = countryDetails[0].callingCode;
+        console.log("calling code: " + code);
+        callingCode.current = code;
+        // return callingCode;
+    }
+
+    const phonePasswordAuthentication = async () => {
         onCaptchVerify();
 
         const appVerifier = window.recaptchaVerifier;
-
-        const formatPh = "+91" + details.phoneNumberOrEmail;
+        await getCallingCode();
+        console.log("format ph calling code: " + callingCode.current);
+        const formatPh = `+${callingCode.current}` + details.phoneNumberOrEmail;
+        console.log("format ph: " + formatPh);
         signInWithPhoneNumber(auth, formatPh, appVerifier)
             .then((confirmationResult) => {
                 window.confirmationResult = confirmationResult;
