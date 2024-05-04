@@ -204,9 +204,6 @@ export const AuthForm = ({ handleShowOTP }) => {
                     name="phoneNumberOrEmail"
                     onChange={(e) => handleInputChange(e.target)}
                     placeholder=" " labelName="Input phone number or email id"
-                    className="items-center"
-                    baseClassName={errors?.phoneNumberOrEmail == undefined && "border-t-transparent border-correct-color before:border-correct-color after:border-correct-color focus:border-t-transparent focus:border-correct-color" }
-                    labelClassName={errors?.phoneNumberOrEmail == undefined && "border-correct-color before:border-correct-color after:border-correct-color peer-focus:border-correct-color peer-focus:before:border-correct-color peer-focus:after:!border-correct-color" }
                     ref={ref}>
                     {
                         errors?.phoneNumberOrEmail && errors?.phoneNumberOrEmail !== "" && (
@@ -220,8 +217,6 @@ export const AuthForm = ({ handleShowOTP }) => {
                     name="password"
                     onChange={(e) => handleInputChange(e.target)}
                     placeholder=" " labelName="Input password"
-                    baseClassName={errors?.password == undefined && "border-t-transparent border-correct-color before:border-correct-color after:border-correct-color focus:border-t-transparent focus:border-correct-color" }
-                    labelClassName={errors?.password == undefined && "border-correct-color before:border-correct-color after:border-correct-color peer-focus:border-correct-color peer-focus:before:border-correct-color peer-focus:after:!border-correct-color" }
                     >
                     <div className="absolute top-5 right-5"
                         ref={ref}>

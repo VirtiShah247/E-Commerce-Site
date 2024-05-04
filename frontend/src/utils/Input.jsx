@@ -3,10 +3,10 @@ import { Fragment, forwardRef} from "react";
 import { tv } from "tailwind-variants";
 const input = tv({
     slots: {
-        base: `focus:ring-0 focus:border-foreground-color peer bg-transparent outline outline-0 focus:outline focus:outline-1 focus:border-1 disabled:bg-secondary-color 
+        base: `focus:ring-0 focus:border-foreground-color peer bg-transparent outline outline-0 focus:outline focus:outline-0 focus:border-1 disabled:bg-secondary-color 
         disabled:border-0 transition-all placeholder-shown:border-2
         placeholder-shown:border-foreground-color border-2 
-        border-foreground-color border-t-transparent focus:border-t-transparent p-4 rounded-md w-full appearance-none`,
+        border-foreground-color border-t-transparent  focus:border-t-transparent p-4 rounded-md w-full appearance-none`,
         label: `flex w-full select-none pointer-events-none absolute left-0 font-normal
         !overflow-visible truncate leading-tight peer-focus:leading-tight 
         peer-disabled:text-transparent transition-all -top-1.5  before:content[' '] before:block
@@ -27,16 +27,16 @@ const input = tv({
     }
 })
 const { base, label } = input();
-export const Input = forwardRef(function Input({ labelName, baseClassName, labelClassName,children, ...props }, ref) {
+export const Input = forwardRef(function Input({ labelName, className,children, ...props }, ref) {
     return (
         <Fragment>
             <div className="relative flex flex-col items-stretch">
                 <input ref={ref}  {...props}
                 id="baseInput"
-                    className={`${base()} ${baseClassName}`} />
+                    className={`${base()} ${className}`} />
                 <label
                 id="labelInput"
-                    className={`${label()} ${labelClassName}`}>
+                    className={`${label()} ${className}`}>
                     {labelName}
                 </label>
                 {children}
@@ -50,7 +50,6 @@ export const Input = forwardRef(function Input({ labelName, baseClassName, label
 Input.propTypes = {
     labelName: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
-    baseClassName: PropTypes.node.isRequired,
-    labelClassName: PropTypes.node.isRequired,
+    className: PropTypes.node.isRequired,
 };
 

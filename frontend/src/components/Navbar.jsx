@@ -31,7 +31,7 @@ export const Navbar = () => {
   return (
     <Fragment>
       <header>
-        <div className="fixed bg-base-color w-full shadow-md z-50">
+        <div className="fixed bg-base-color w-full shadow-md z-50 top-0">
           {
             openMobileSearch ?
               <nav className="w-full m-0 p-0 bg-base-color/70 shadow-2xl">

@@ -28,7 +28,7 @@ export const LandingPage = () => {
     }
     return (
         <Fragment>
-            <div className="max-w-fit min-w-[200px] mt-24">
+            <div className="max-w-fit min-w-[200px]">
                 <Slider {...settings} className="relative max-w-fit min-w-[200px]">
                     {
                         landingPages.map(landingPage =>
