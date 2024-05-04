@@ -27,7 +27,8 @@ export default {
         'secondary-color': '#e45858',
         'base-color': '#fffffe',
         'foreground-color': '#2b2c34',
-        'active-state-color': '#d1d1e9'
+        'active-state-color': '#d1d1e9',
+        'correct-color': '#0A6847'
       },
       boxShadow: {
         '3xl': '0 0px 20px 0px rgba(0,0,0,0.3)'

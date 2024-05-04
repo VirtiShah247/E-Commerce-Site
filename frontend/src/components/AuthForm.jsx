@@ -22,7 +22,10 @@ export const AuthForm = ({ handleShowOTP }) => {
     const { pageName, authToken } = useContext(AuthContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({
+        'phoneNumberOrEmail': "",
+        'password': ""
+    });
     const formLinkName = pageName === "Login" ? "New User? Register" : "Already Registered? Login";
     const [details, handleChange] = useInputChange({
         'phoneNumberOrEmail': "",
@@ -46,8 +49,8 @@ export const AuthForm = ({ handleShowOTP }) => {
         }
     }
 
-    const getCallingCode = async() => {
-        const dataCollection = collection(firestoreDb,"country");
+    const getCallingCode = async () => {
+        const dataCollection = collection(firestoreDb, "country");
         const countryDocs = await getDocs(dataCollection);
         const countryDetails = countryDocs.docs.map((doc) => doc.data());
         const code = countryDetails[0].callingCode;
@@ -108,7 +111,7 @@ export const AuthForm = ({ handleShowOTP }) => {
                 })
         }
         else if (pageName === "Login") {
-            signInWithEmailAndPassword(auth, details.phoneNumberOrEmail, details.password)
+            signInWithEmailAndPassword(auth, details?.phoneNumberOrEmail, details?.password)
                 .then((response) => {
                     toast.success("Login successful");
                     navigate('/');
@@ -117,7 +120,7 @@ export const AuthForm = ({ handleShowOTP }) => {
                     authToken.current = response._tokenResponse.refreshToken;
                 })
                 .catch((error) => {
-                    const errorMessage = error.code.split("/")[1];
+                    const errorMessage = error?.code?.split("/")[1];
                     if (errorMessage === 'invalid-credential') {
                         toast.error('Please check the Credential');
                         setLoading(false);
@@ -137,6 +140,23 @@ export const AuthForm = ({ handleShowOTP }) => {
                 })
         }
     }
+    const handleInputChange = async ({ name, value }) => {
+        handleChange({ name, value });
+        console.log("errors: " + errors.phoneNumberOrEmail + " " + errors.password);
+        if (errors[name] != "") {
+            const detail = { ...details, [name]: value };
+            try {
+                await formValidationSchema.validate(detail, { abortEarly: false });
+            }
+            catch (error) {
+                const newErrors = {};
+                error?.inner.forEach((err) => {
+                    newErrors[err?.path] = err?.message;
+                });
+                setErrors(newErrors);
+            }
+        }
+    }
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
@@ -146,8 +166,8 @@ export const AuthForm = ({ handleShowOTP }) => {
         }
         catch (error) {
             const newErrors = {};
-            error.inner.forEach((err) => {
-                newErrors[err.path] = err.message;
+            error?.inner.forEach((err) => {
+                newErrors[err?.path] = err?.message;
             });
             setErrors(newErrors);
             setLoading(false);
@@ -179,47 +199,69 @@ export const AuthForm = ({ handleShowOTP }) => {
                     OR
                 </div>
 
-                    <Input type="text"
-                        id="phoneNumberOrEmail" values={details.phoneNumberOrEmail}
-                        name="phoneNumberOrEmail"
-                        onChange={(e) => handleChange(e.target)}
-                        placeholder=" " labelName="Input phone number or email id"
-                        className="items-center"
+                <Input type="text"
+                    id="phoneNumberOrEmail" values={details.phoneNumberOrEmail}
+                    name="phoneNumberOrEmail"
+                    onChange={(e) => handleInputChange(e.target)}
+                    placeholder=" " labelName="Input phone number or email id"
+                    className="items-center"
+                    baseClassName={errors?.phoneNumberOrEmail == undefined && "border-t-transparent border-correct-color before:border-correct-color after:border-correct-color focus:border-t-transparent focus:border-correct-color" }
+                    labelClassName={errors?.phoneNumberOrEmail == undefined && "border-correct-color before:border-correct-color after:border-correct-color peer-focus:border-correct-color peer-focus:before:border-correct-color peer-focus:after:!border-correct-color" }
+                    ref={ref}>
+                    {
+                        errors?.phoneNumberOrEmail && errors?.phoneNumberOrEmail !== "" && (
+                            <div className="text-secondary-color">{errors?.phoneNumberOrEmail}</div>
+                        )
+                    }
+                </Input>
+
+                <Input type={showPassword === true ? "text" : "password"}
+                    id="password" values={details.password}
+                    name="password"
+                    onChange={(e) => handleInputChange(e.target)}
+                    placeholder=" " labelName="Input password"
+                    baseClassName={errors?.password == undefined && "border-t-transparent border-correct-color before:border-correct-color after:border-correct-color focus:border-t-transparent focus:border-correct-color" }
+                    labelClassName={errors?.password == undefined && "border-correct-color before:border-correct-color after:border-correct-color peer-focus:border-correct-color peer-focus:before:border-correct-color peer-focus:after:!border-correct-color" }
+                    >
+                    <div className="absolute top-5 right-5"
                         ref={ref}>
                         {
-                            errors.phoneNumberOrEmail && (
-                                <div className="text-secondary-color">{errors.phoneNumberOrEmail}</div>
-                            )
+                            showPassword === true ? <Button type="button" ref={ref} color={"baseColorButton"} onClick={() => setShowPassword(false)}>
+                                <AiFillEye size={20} />
+                            </Button> : <Button type="button" ref={ref} color={"baseColorButton"} onClick={() => setShowPassword(true)}>
+                                <AiFillEyeInvisible size={20} />
+                            </Button>
                         }
-                    </Input>
-
-
-                    <Input type={showPassword === true ? "text" : "password"}
-                        id="password" values={details.password}
-                        name="password"
-                        onChange={(e) => handleChange(e.target)}
-                        placeholder=" " labelName="Input password">
-                        <div className="absolute top-5 right-5"
-                            ref={ref}>
-                            {
-                                showPassword === true ? <Button type="button" ref={ref} color={"baseColorButton"} onClick={() => setShowPassword(false)}>
-                                    <AiFillEye size={20} />
-                                </Button> : <Button type="button" ref={ref} color={"baseColorButton"} onClick={() => setShowPassword(true)}>
-                                    <AiFillEyeInvisible size={20} />
-                                </Button>
-                            }
-
-                        </div>
-                        {
-                            errors.password && (<div className="text-secondary-color">{
-                                errors.password.split("\n").map((str, index) => <p key={index}>{str}</p>)
-                            }</div>)
-                        }
-                    </Input>
-                    <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
-                    <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="py-3 px-16 text-[20px]" disabled={loading}>
-                        {loading === true ? <LoadingIcons.Oval /> : pageName}
-                    </Button>
+                    </div>
+                    {
+                        errors?.password && errors?.password !== "" && (<div className="text-secondary-color">{
+                            errors?.password.split("\n").map((str, index) => {
+                                if(index == 1 && /.{8,}/.test(details.password)) {
+                                    return <p key={index} className="text-correct-color">{str}</p>
+                                }
+                                if (index == 2 && /[A-Z]/.test(details.password)) {
+                                    return <p key={index} className="text-correct-color">{str}</p>
+                                }
+                                if (index == 3 && /[a-z]/.test(details.password)) {
+                                    return <p key={index} className="text-correct-color">{str}</p>
+                                }
+                                if (index == 4 && /\d/.test(details.password)) {
+                                    return <p key={index} className="text-correct-color">{str}</p>
+                                }
+                                if(index == 5 && /[@$!%*?&]/.test(details.password)){
+                                    return <p key={index} className="text-correct-color">{str}</p>
+                                   }
+                                else {
+                                    return <p key={index}>{str}</p>
+                                }
+                            })
+                        }</div>)
+                    }
+                </Input>
+                <Links to={pageName === 'Login' ? "/register" : "/login"} color={"primaryColorLink"} size={"md"}>{formLinkName}</Links>
+                <Button id="registerButton" type="submit" color={"primaryColorButton"} size={"md"} ref={ref} className="py-3 px-16 text-[20px]" disabled={loading}>
+                    {loading === true ? <LoadingIcons.Oval /> : pageName}
+                </Button>
             </Form>
         </Fragment>
     )

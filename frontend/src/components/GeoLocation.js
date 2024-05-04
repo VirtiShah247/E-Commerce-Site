@@ -43,10 +43,8 @@ export const GeoLocation = () => {
     },[location]);
     useEffect(()=>{
         if(Object.keys(countryDetails).length !== 0 && countryDetails !== undefined){
-            console.log("country details: " + countryDetails);
             const dataCollection = collection(firestoreDb, "country");
             const dataRef = doc(dataCollection,"country");
-            console.log("data ref: " + dataRef);
             setDoc(dataRef,countryDetails);
         }
     },[countryDetails]);
