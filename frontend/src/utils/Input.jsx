@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-import { Fragment, forwardRef } from "react";
+import { Fragment, forwardRef} from "react";
 import { tv } from "tailwind-variants";
 const input = tv({
     slots: {
-        base: `focus:ring-0 focus:border-foreground-color peer bg-transparent outline outline-0 focus:outline focus:outline-1 focus:border-1 disabled:bg-secondary-color 
+        base: `focus:ring-0 focus:border-foreground-color peer bg-transparent outline outline-0 focus:outline focus:outline-0 focus:border-1 disabled:bg-secondary-color 
         disabled:border-0 transition-all placeholder-shown:border-2
         placeholder-shown:border-foreground-color border-2 
-        border-secondary-color border-t-transparent focus:border-t-transparent p-4 rounded-md w-[250px] md:w-[350px] `,
-        label: `flex w-[250px] md:w-[350px] select-none pointer-events-none absolute left-0 font-normal
+        border-foreground-color border-t-transparent  focus:border-t-transparent p-4 rounded-md w-full appearance-none`,
+        label: `flex w-full select-none pointer-events-none absolute left-0 font-normal
         !overflow-visible truncate leading-tight peer-focus:leading-tight 
         peer-disabled:text-transparent transition-all -top-1.5  before:content[' '] before:block
         before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] before:mr-1 
@@ -20,26 +20,25 @@ const input = tv({
         peer-focus:after:border-r-2 after:pointer-events-none after:transition-all 
         peer-disabled:after:border-transparent peer-placeholder-shown:leading-[5] 
         [&:not(peer-focus)]:leading-[1.3] peer-focus:text-foreground-color text-sm 
-        peer-focus:before:border-secondary-color peer-focus:before:border-foreground-color after:border-t-2
-        after:border-secondary-color
-        peer-focus:after:!border-foreground-color before:border-t-2 before:border-secondary-color focus:ring-0`
+        peer-focus:before:border-foreground-color peer-focus:before:border-foreground-color after:border-t-2
+        after:border-foreground-color
+        peer-focus:after:!border-foreground-color before:border-t-2  before:border-foreground-color  focus:ring-0`
 
     }
 })
 const { base, label } = input();
-export const Input = forwardRef(function Input({ labelName, children, ...props }, ref) {
-
+export const Input = forwardRef(function Input({ labelName, className,children, ...props }, ref) {
     return (
         <Fragment>
-            <div>
-                <div className="relative justify-self-center sm:justify-self-start">
-                    <input ref={ref}  {...props}
-                        className={base()} />
-                    <label
-                        className={label()}>
-                        {labelName}
-                    </label>
-                </div>
+            <div className="relative flex flex-col items-stretch">
+                <input ref={ref}  {...props}
+                id="baseInput"
+                    className={`${base()} ${className}`} />
+                <label
+                id="labelInput"
+                    className={`${label()} ${className}`}>
+                    {labelName}
+                </label>
                 {children}
             </div>
 
@@ -51,5 +50,6 @@ export const Input = forwardRef(function Input({ labelName, children, ...props }
 Input.propTypes = {
     labelName: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
+    className: PropTypes.node.isRequired,
 };
 
