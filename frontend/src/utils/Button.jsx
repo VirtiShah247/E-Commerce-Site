@@ -10,7 +10,6 @@ const button = tv({
             secondaryColorButton: "bg-secondary-color text-foreground-color",
             foregroundColorButton: "bg-foreground-color text-base-color",
             activeStateColorButton: "bg-actibe-state-color text-foreground-color",
-
         },
         disabled: {
             true: "opacity-50 cursor-not-allowed"

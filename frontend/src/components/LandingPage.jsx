@@ -23,19 +23,16 @@ export const LandingPage = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 2000,
-        arrows: true,
-
+        arrows: false,
     }
     return (
         <Fragment>
-            <div className="max-w-fit min-w-[200px]">
-                <Slider {...settings} className="relative max-w-fit min-w-[200px]">
+            <div className="min-w-[200px]">
+                <Slider {...settings} className="relative w-auto min-w-[200px]">
                     {
                         landingPages.map(landingPage =>
-                            <div key={landingPage.id} className="w-full">
-                                <div>
-                                    <img src={landingPage.imageLink} alt="landing-page" className="w-full h-auto max-h-[600px]" />
-                                </div>
+                            <div key={landingPage.id} className="">
+                                <img src={landingPage.imageLink} alt="landing-page" className="w-full h-auto max-h-[600px]" loading="lazy" />
                             </div>)
                     }
                 </Slider>

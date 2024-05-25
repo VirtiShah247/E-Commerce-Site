@@ -20,14 +20,14 @@ export const Navbar = () => {
     setOpenMenu(openMenu => (!openMenu));
     openMenuRef.current = !openMenu;
   }, [openMenu])
-  useEffect(()=>{
-    if(openMenuRef.current){
-    document.querySelector(".mainBody").classList.add("overlayBackground");
+  useEffect(() => {
+    if (openMenuRef.current) {
+      document.querySelector(".mainBody").classList.add("overlayBackground");
     }
-    return()=>{
-    document.querySelector(".mainBody").classList.remove("overlayBackground");
+    return () => {
+      document.querySelector(".mainBody").classList.remove("overlayBackground");
     }
-  },[openMenu]);
+  }, [openMenu]);
   return (
     <Fragment>
       <header>
@@ -91,7 +91,7 @@ export const Navbar = () => {
                       <input type="search" placeholder="Search for products, brands, and more" className="hidden sm:grid lg:w-[350px] sm:w-[250px] sm:px-3 sm:ps-9 sm:py-[5px] sm:rounded-md focus:outline-none" />
                     </form>
                     <Dropdown className="hidden sm:block">
-                      <div className="hidden sm:flex-col sm:items-center sm:w-full sm:flex">
+                      <div className="hidden sm:flex-col sm:items-center md:w-full md:flex">
                         <div>
                           <AiOutlineUser size={20} />
                         </div>
