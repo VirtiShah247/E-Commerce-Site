@@ -9,6 +9,7 @@ import { Container } from "../utils/Container";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Tooltip } from "react-tooltip";
 
 
 export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, memberPrice, lengthCollection, color, articlesList, fits, styleCollection }) => {
@@ -16,11 +17,19 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
     const [allArticleImages, setAllArticleImages] = useState(null);
     const [gallery, setGallery] = useState(null);
     const screenWidth = useRef(window.innerWidth);
-    const [imagesWithPlaceholders, setImageWithPlaceholders] = useState(allArticleImages);
+    const [imagesWithPlaceholders, setImagesWithPlaceholders] = useState(allArticleImages);
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const [openAccordion, setOpenAccordion] = useState("");
-
+    const [pageName, setPageName] = useState([]);
     const newArticleList = useRef(null);
+
+    document.title = pageName;
+    
+
+    useEffect(() => {
+        const newLengthCollection = lengthCollection.map((length) => length.value[0]);
+        setPageName(`${name} - ${newLengthCollection.join(" - ")} - ${color}`);
+    }, [])
     useEffect(() => {
         console.log("articlessssss");
         newArticleList.current = articlesList.filter((article) => (article?.redPrice?.price == undefined))
@@ -38,7 +47,6 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                     "countryOfProduction": article?.countryOfProduction,
                     "productTypeName": article?.productTypeName,
                     "netQuantity": article?.netQuantity,
-                    "importedBy": article?.importedBy,
                     "importedDate": article?.importedDate,
                     "careGuide": article?.careInstructions,
                     "materials": article?.sustainabilityCompositions[0]?.materials,
@@ -48,10 +56,10 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
             }
             setAllArticleImages((prevDetails) => {
                 if (key !== 0) {
-                    return [...prevDetails, { "id": article?.code, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
+                    return [...prevDetails, { "id": article?.code, "color": article?.color?.text, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
                 }
                 else {
-                    return [{ "id": article?.code, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
+                    return [{ "id": article?.code,  "color": article?.color?.text, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
                 }
             })
         })
@@ -81,7 +89,7 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                 imageUrl: '',
             });
 
-            setImageWithPlaceholders([...allArticleImages, ...placeholderImages]);
+            setImagesWithPlaceholders([...allArticleImages, ...placeholderImages]);
         }
 
     }, [allArticleImages, screenWidth])
@@ -123,7 +131,9 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                         (<Slider {...settings} slidesToShow={1} slidesToScroll={1} infinite={true} className="productDescriptionImage relative">
                             {
                                 gallery?.map((image, key) => {
-                                    return <img key={key} src={image.baseUrl} />
+                                    return <>
+                                        <img key={key} src={image.baseUrl} data-tooltip-id={`product-image-subHeader-${key + 1}`} />
+                                    </>
                                 })
                             }
                         </Slider>
@@ -132,7 +142,10 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                         <div className="grid xl:grid-cols-2 xl:col-span-2">
                             {
                                 gallery?.map((image, key) => {
-                                    return <img key={key} src={image.baseUrl} className={`xl:col-span-1 ${key % 3 === 0 && `md:col-span-2`}`} />
+                                    return <>
+                                        <Tooltip id={`product-image-subHeader-${key + 1}`} place="bottom" content={`${pageName} - ${key+1}`} />
+                                        <img key={key} src={image.baseUrl} data-tooltip-id={`product-image-subHeader-${key + 1}`} className={`xl:col-span-1 ${key % 3 === 0 && `md:col-span-2`}`} />
+                                    </>
                                 })
                             }
                         </div>
@@ -171,15 +184,13 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                     </div>
                     <div>
                         <strong className="text-sm font-bold">{color}</strong>
-                        {
-                            console.log("allArticleImage:::: " + allArticleImages)
-                        }
                         <Slider {...settings} slidesToShow={7} slidesToScroll={7} infinite={false} {...responsiveSetting} className="relative allArticlesImagesSlider">
                             {
                                 imagesWithPlaceholders?.map((image) => {
                                     return image.id === "placeholder" ? <div></div> :
                                         <Button color="baseColorButton" className="p-1">
-                                            <img key={image.id} src={image.imageUrl} alt="not found" className={`${image.id === id && `border-2 border-foreground-color `}`} />
+                                            <Tooltip id={`product-image-color-${image.id}`} place="bottom" content={image.color} />
+                                            <img key={image.id} src={image.imageUrl} alt="not found" data-tooltip-id = {`product-image-color-${image.id}`} className={`${image.id === id && `border-2 border-foreground-color `}`} />
                                         </Button>
                                 })
                             }
@@ -220,7 +231,7 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                                 <p>{articleDetails?.description}</p>
                                 <small>Article number: {id}</small>
                             </div>
-                            <div className="text-sm">
+                            <div className="text-sm leading-loose">
                                 {
                                     articleDetails?.sizes && <strong>Size:</strong>
                                 }
@@ -243,32 +254,44 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                                         </p>
                                     })
                                 }
-                                {
-                                    <p>
-                                        <strong>Fit: </strong>
-                                        <span>{fits[0]}</span>
-                                    </p>
-                                }
-                                {
-                                    <p>
-                                        <strong>Style: </strong>
-                                        {
-                                            styleCollection?.map((style, key) => <span key={key}>{style}{key !== styleCollection.length - 1 && `, `}</span>)
-                                        }
-                                    </p>
-                                }
-                                {
-                                    <p>
-                                        <strong>Description: </strong>
-                                        <span>{color}</span>
-                                    </p>
-                                }
-                                {
-                                    <p>
-                                        <strong>Concept: </strong>
-                                        <span>{articleDetails?.concept}</span>
-                                    </p>
-                                }
+                                <p>
+                                    <strong>Fit: </strong>
+                                    <span>{fits[0]}</span>
+                                </p>
+                                <p>
+                                    <strong>Style: </strong>
+                                    {
+                                        styleCollection?.map((style, key) => <span key={key}>{style}{key !== styleCollection.length - 1 && `, `}</span>)
+                                    }
+                                </p>
+                                <p>
+                                    <strong>Description: </strong>
+                                    <span>{color}</span>
+                                </p>
+                                <p>
+                                    <strong>Concept: </strong>
+                                    <span>{articleDetails?.concept}</span>
+                                </p>
+                                <p>
+                                    <strong>Price(MRP): </strong>
+                                    <span>{currencySymbol}{price}.00</span>
+                                </p>
+                                <p>
+                                    <strong>Country of Production: </strong>
+                                    <span>{articleDetails?.countryOfProduction}</span>
+                                </p>
+                                <p>
+                                    <strong>Common generic name: </strong>
+                                    <span>{articleDetails?.productTypeName}</span>
+                                </p>
+                                <p>
+                                    <strong>Net Quantity: </strong>
+                                    <span>{articleDetails?.netQuantity}</span>
+                                </p>
+                                <p>
+                                    <strong>Date of import: </strong>
+                                    <span>{articleDetails?.importedDate}</span>
+                                </p>
                             </div>
                         </Accordion>
                     </div>
@@ -321,15 +344,13 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                             onClick={() => setOpenAccordion(openAccordion === "Care guide" ? '' : "Care guide")}
                         >
                             <div>
-                                <ul className="ms-4 text-sm">
+                                <ul className="ms-4 text-sm leading-relaxed">
                                     {articleDetails?.careGuide?.map((instruction, key) => <li key={key} className="list-disc">{instruction}</li>)}
                                 </ul>
                             </div>
                         </Accordion>
                     </div>
                 </div>
-
-
             </Container>
         </Fragment >
     )
