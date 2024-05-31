@@ -14,7 +14,7 @@ function App() {
         <AuthProvide>
           <GeoLocation />
           <Navbar />
-          <div className="mainBody grid grid-rows-[auto_1fr_auto] bg-base-color mt-24">
+          <div className="mainBody grid grid-rows-[auto_1fr_auto] bg-base-color pt-24">
             <Routes>
               <Route path="/" >
                 <Route index path='/' element={<Home />} />
@@ -22,8 +22,8 @@ function App() {
                 <Route path="register" element={<Register />} />
               </Route>
             </Routes>
-          </div>
           <Footer />
+          </div>
         </AuthProvide>
       </BrowserRouter>
     </>

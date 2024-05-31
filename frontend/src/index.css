@@ -43,11 +43,10 @@ h6 {
 }
 
 .slick-dots{
-  bottom: 1rem;
-  
+  bottom: 0.5rem;
 }
 .slick-dots li button::before {
-  font-size: small;
+  font-size: 15px;
 }
 .slick-dots li.slick-active button::before {
   @apply text-secondary-color;

@@ -20,14 +20,14 @@ export const Navbar = () => {
     setOpenMenu(openMenu => (!openMenu));
     openMenuRef.current = !openMenu;
   }, [openMenu])
-  useEffect(()=>{
-    if(openMenuRef.current){
-    document.querySelector(".mainBody").classList.add("overlayBackground");
+  useEffect(() => {
+    if (openMenuRef.current) {
+      document.querySelector(".mainBody").classList.add("overlayBackground");
     }
-    return()=>{
-    document.querySelector(".mainBody").classList.remove("overlayBackground");
+    return () => {
+      document.querySelector(".mainBody").classList.remove("overlayBackground");
     }
-  },[openMenu]);
+  }, [openMenu]);
   return (
     <Fragment>
       <header>
@@ -120,7 +120,26 @@ export const Navbar = () => {
               </nav>
           }
         </div>
-        <MobileSidebar openMenu={openMenu} handleOpenMenu={handleMenu} />
+        <MobileSidebar openMenu={openMenu} handleOpenMenu={handleMenu}>
+          <div>
+            <Link to="/men" className="hover:opacity-50">
+              <div>Men</div>
+            </Link>
+            <Link to="/women" className="hover:opacity-50">
+              <div>Women</div>
+            </Link>
+            <Link to="/kids" className="hover:opacity-50">
+              <div>Kids</div>
+            </Link>
+            <Link to="/beauty" className="hover:opacity-50">
+              <div>Beauty</div>
+            </Link>
+          </div>
+          <hr className="border-t-2 border-gray-400 text-opacity-100 my-2" />
+          <div>
+            <ProfileItems />
+          </div>
+        </MobileSidebar>
       </header>
     </Fragment>
   )
