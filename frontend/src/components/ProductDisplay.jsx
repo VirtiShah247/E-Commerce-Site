@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { PiHeartStraightFill, PiHeartStraightLight, PiRulerLight } from "react-icons/pi";
 import { BsBag } from "react-icons/bs";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
@@ -10,6 +10,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Tooltip } from "react-tooltip";
+
 
 
 export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, memberPrice, lengthCollection, color, articlesList, fits, styleCollection }) => {
@@ -24,75 +25,7 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
     const newArticleList = useRef(null);
 
     document.title = pageName;
-    
 
-    useEffect(() => {
-        const newLengthCollection = lengthCollection.map((length) => length.value[0]);
-        setPageName(`${name} - ${newLengthCollection.join(" - ")} - ${color}`);
-    }, [])
-    useEffect(() => {
-        console.log("articlessssss");
-        newArticleList.current = articlesList.filter((article) => (article?.redPrice?.price == undefined))
-    }, [articlesList])
-
-    useEffect(() => {
-        console.log("newArticle: " + newArticleList.current);
-        newArticleList?.current?.map((article, key) => {
-            if (article?.code === id) {
-                setArticleDetails({
-                    "id": article?.code,
-                    "description": article?.description,
-                    "sizes": article?.variantsList,
-                    "concept": article?.concepts,
-                    "countryOfProduction": article?.countryOfProduction,
-                    "productTypeName": article?.productTypeName,
-                    "netQuantity": article?.netQuantity,
-                    "importedDate": article?.importedDate,
-                    "careGuide": article?.careInstructions,
-                    "materials": article?.sustainabilityCompositions[0]?.materials,
-                    "composition": article?.compositions[0].materials,
-                    "materialDetails": article?.materialDetails,
-                })
-            }
-            setAllArticleImages((prevDetails) => {
-                if (key !== 0) {
-                    return [...prevDetails, { "id": article?.code, "color": article?.color?.text, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
-                }
-                else {
-                    return [{ "id": article?.code,  "color": article?.color?.text, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
-                }
-            })
-        })
-    }, [articlesList, id])
-    useEffect(() => {
-        newArticleList?.current?.map((article) => {
-            if (article?.code === id) {
-                console.log("callled");
-                setGallery(article?.galleryDetails);
-            }
-        })
-    }, [id])
-
-    useEffect(() => {
-        if (allArticleImages !== null) {
-            let slidesToShowCount = 7;
-
-            if (screenWidth < 641) {
-                slidesToShowCount = 5;
-            }
-            else if (screenWidth < 769) {
-                slidesToShowCount = 6;
-            }
-            const remainder = allArticleImages?.length % slidesToShowCount;
-            const placeholderImages = Array(remainder).fill({
-                id: 'placeholder',
-                imageUrl: '',
-            });
-
-            setImagesWithPlaceholders([...allArticleImages, ...placeholderImages]);
-        }
-
-    }, [allArticleImages, screenWidth])
     const settings = {
         dots: false,
         autoplay: false,
@@ -117,6 +50,95 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
             }
         ]
     }
+    
+
+    useEffect(() => {
+        const newLengthCollection = lengthCollection.map((length) => length.value[0]);
+        setPageName(`${name} - ${newLengthCollection.join(" - ")} - ${color}`);
+    }, []);
+
+    useEffect(() => {
+        newArticleList.current = articlesList.filter((article) => (article?.redPrice?.price == undefined))
+    }, [articlesList]);
+
+    useEffect(() => {
+        newArticleList?.current?.map((article, key) => {
+            if (article?.code === id) {
+                setArticleDetails({
+                    "id": article?.code,
+                    "description": article?.description,
+                    "sizes": article?.variantsList,
+                    "concept": article?.concepts,
+                    "countryOfProduction": article?.countryOfProduction,
+                    "productTypeName": article?.productTypeName,
+                    "netQuantity": article?.netQuantity,
+                    "importedDate": article?.importedDate,
+                    "careGuide": article?.careInstructions,
+                    "materials": article?.sustainabilityCompositions[0]?.materials,
+                    "composition": article?.compositions[0].materials,
+                    "materialDetails": article?.materialDetails,
+                })
+                setGallery(article?.galleryDetails);
+            }
+            setAllArticleImages((prevDetails) => {
+                if (key !== 0) {
+                    return [...prevDetails, { "id": article?.code, "color": article?.color?.text, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
+                }
+                else {
+                    return [{ "id": article?.code,  "color": article?.color?.text, "imageUrl": article?.fabricSwatchThumbnails[0]?.baseUrl }];
+                }
+            })
+        })
+    }, [id]);
+
+    useEffect(() => {
+        if (allArticleImages !== null) {
+            let slidesToShowCount = 7;
+
+            if (screenWidth < 641) {
+                slidesToShowCount = 5;
+            }
+            else if (screenWidth < 769) {
+                slidesToShowCount = 6;
+            }
+            const remainder = allArticleImages?.length % slidesToShowCount;
+            const placeholderImages = Array(remainder).fill({
+                id: 'placeholder',
+                imageUrl: '',
+            });
+
+            setImagesWithPlaceholders([...allArticleImages, ...placeholderImages]);
+        }
+
+    }, [allArticleImages, screenWidth]);
+
+    const renderSliderImages = useCallback(() => {
+        return gallery?.map((image, key) => {
+            return <>
+                <img key={key} src={image.baseUrl} alt="image not found" />
+            </>
+        })
+    },[gallery])
+
+    const renderGridImages = useCallback(()=>{
+        return gallery?.map((image, key) => {
+            return <>
+                <Tooltip id={`product-image-subHeader-${key + 1}`} place="bottom" content={`${pageName} - ${key+1}`} />
+                <img key={key} src={image.baseUrl} data-tooltip-id={`product-image-subHeader-${key + 1}`} className={`xl:col-span-1 ${key % 3 === 0 && `md:col-span-2`}`} />
+            </>
+        })
+    },[gallery, pageName])
+
+    const renderImagesWithPlaceholders = useCallback(()=>{
+        return imagesWithPlaceholders?.map((image) => {
+            return image.id === "placeholder" ? <div></div> :
+                <Button color="baseColorButton" className="p-1">
+                    <Tooltip id={`product-image-color-${image.id}`} place="bottom" content={image.color} />
+                    <img key={image.id} src={image.imageUrl} alt="not found" data-tooltip-id = {`product-image-color-${image.id}`} className={`${image.id === id && `border-2 border-foreground-color `}`} />
+                </Button>
+        })
+    },[imagesWithPlaceholders, id])
+
     return (
         <Fragment>
             <div className="text-center my-3 text-sm">
@@ -130,23 +152,14 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                     screenWidth.current < 769 ?
                         (<Slider {...settings} slidesToShow={1} slidesToScroll={1} infinite={true} className="productDescriptionImage relative">
                             {
-                                gallery?.map((image, key) => {
-                                    return <>
-                                        <img key={key} src={image.baseUrl} data-tooltip-id={`product-image-subHeader-${key + 1}`} />
-                                    </>
-                                })
+                                renderSliderImages()
                             }
                         </Slider>
                         )
                         :
                         <div className="grid xl:grid-cols-2 xl:col-span-2">
                             {
-                                gallery?.map((image, key) => {
-                                    return <>
-                                        <Tooltip id={`product-image-subHeader-${key + 1}`} place="bottom" content={`${pageName} - ${key+1}`} />
-                                        <img key={key} src={image.baseUrl} data-tooltip-id={`product-image-subHeader-${key + 1}`} className={`xl:col-span-1 ${key % 3 === 0 && `md:col-span-2`}`} />
-                                    </>
-                                })
+                                renderGridImages()
                             }
                         </div>
                 }
@@ -186,13 +199,7 @@ export const ProductDisplay = ({ id, subHeader, name, currencySymbol, price, mem
                         <strong className="text-sm font-bold">{color}</strong>
                         <Slider {...settings} slidesToShow={7} slidesToScroll={7} infinite={false} {...responsiveSetting} className="relative allArticlesImagesSlider">
                             {
-                                imagesWithPlaceholders?.map((image) => {
-                                    return image.id === "placeholder" ? <div></div> :
-                                        <Button color="baseColorButton" className="p-1">
-                                            <Tooltip id={`product-image-color-${image.id}`} place="bottom" content={image.color} />
-                                            <img key={image.id} src={image.imageUrl} alt="not found" data-tooltip-id = {`product-image-color-${image.id}`} className={`${image.id === id && `border-2 border-foreground-color `}`} />
-                                        </Button>
-                                })
+                                renderImagesWithPlaceholders()
                             }
                         </Slider>
                     </div>
