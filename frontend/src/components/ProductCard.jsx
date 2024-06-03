@@ -1,7 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css';
 import { Tooltip } from "react-tooltip";
 import { Link } from "react-router-dom";
 import { PiHeartStraightFill, PiHeartStraightLight } from "react-icons/pi";
@@ -70,7 +68,9 @@ export const ProductCard = ({ id, name, price, memberPrice, mainImage, secondIma
         <Fragment key={id}>
             <div ref={imgRef}>
                 {isLoading ? (
-                    <Skeleton height={400} width={350} />
+                    <div className="h-[400px] w-[320px] bg-slate-300 grid content-center justify-center">
+                        Loading...
+                    </div>
                 ) : (
                     <div className="relative">
                         <Link to={`/product/${id}`}>

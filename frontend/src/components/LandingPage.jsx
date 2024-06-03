@@ -50,8 +50,8 @@ export const LandingPage = () => {
                         landingPages.map(landingPage =>
                             <div key={landingPage.id} className="w-full">
                                 {
-                                    landingPage.loading === true ? <div className="h-[600px] bg-slate-300">
-                                        Loading....
+                                    landingPage.loading === true ? <div className="h-[400px] bg-slate-300 grid content-center justify-center">
+                                    loading....
                                     </div> :
                                         <img src={landingPage.imageLink} alt="landing-page" className="w-full h-auto max-h-[600px]" />
                                 }

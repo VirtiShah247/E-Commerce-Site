@@ -2,7 +2,6 @@ import { Fragment, useState } from "react";
 import { useParams } from "react-router-dom"
 import { useAxios } from "../hooks/useAxios";
 import { Container } from "../utils/Container";
-import Skeleton from "react-loading-skeleton";
 import { collection, getDocs } from "firebase/firestore";
 import { firestoreDb } from "../firebase/config";
 import { ProductDisplay } from "../components/ProductDisplay";
@@ -45,7 +44,10 @@ export const ProductDetails = () => {
         <Fragment key={id}>
             <Container>
                 {
-                    loading === true? <Skeleton /> :
+                    loading === true? 
+                    <div className="h-dvh w-dvw bg-slate-300 grid content-center justify-center">
+                        loading...
+                    </div> :
                         (
                             error !== "" ? <div className="text-secondary-color">Error {error.message}</div> :
                                 (
