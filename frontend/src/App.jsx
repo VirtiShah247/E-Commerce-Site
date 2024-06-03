@@ -6,6 +6,7 @@ import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer';
 import { AuthProvide } from './context/AuthProvide'
 import { GeoLocation } from './components/GeoLocation';
+import { ProductDetails } from './pages/ProductDetails'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
                 <Route index path='/' element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="/product/:id" element={<ProductDetails />} />
               </Route>
             </Routes>
           </div>

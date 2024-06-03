@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Reddit+Mono:wght@200..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   background-color: var(--base-color);
+  font-family: "Lato", sans-serif;
 }
 
-.overlayBackground{
+.overlayBackground {
   filter: brightness(50%);
 }
 
@@ -42,19 +44,79 @@ h6 {
   font-weight: 500;
 }
 
-.slick-dots{
+
+
+.slick-dots {
   bottom: 1rem;
-  
+  margin: 0rem !important;
+  padding: 0px !important;
 }
+
 .slick-dots li button::before {
   font-size: small;
 }
+
 .slick-dots li.slick-active button::before {
   @apply text-secondary-color;
 }
 
-.otp-container input[type='tel']{
-  width: 33px !important;
+.slick-prev::before,
+.slick-next::before {
+  font-family: none;
+  font-size: 20px;
+  transform: scaleY(1.5);
+  line-height: 1;
+  opacity: 1;
+  display: inline-block;
+  color: #2b2c34;
+  position: relative;
+  top: -1px;
 }
 
+.productDescriptionImage .slick-prev {
+  background-color: rgba(255, 255, 255, 0.304);
+  width: 30px;
+  height: 30px;
+  left: 15px;
+  border-radius: 50%;
+  z-index: 2;
+}
 
+.productDescriptionImage .slick-next {
+  background-color: rgba(255, 255, 255, 0.304);
+  width: 30px;
+  height: 30px;
+  right: 15px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.allArticlesImagesSlider .slick-slider {
+  overflow: hidden;
+}
+
+.allArticlesImagesSlider .slick-list {
+  position: relative;
+  left: -1px;
+
+}
+
+.allArticlesImagesSlider .slick-prev {
+  width: 20px;
+  height: 20px;
+  left: -20px;
+  z-index: 2;
+}
+
+.allArticlesImagesSlider .slick-next {
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+.slick-disabled{
+  display: none !important;
+}
+.otp-container input[type='tel'] {
+  width: 33px !important;
+}

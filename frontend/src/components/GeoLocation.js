@@ -22,11 +22,13 @@ export const GeoLocation = () => {
                                 console.log(state.data);
                                 const name = state.data.results[0].components.country;
                                 const callingCode = state.data.results[0].annotations.callingcode;
+                                const currency = state.data.results[0].annotations.currency.symbol;
                                 if(name !== countryDetails.name){
                                     setCountryDetails({
                                         'id': uuid(),
                                         'name': name,
                                         'callingCode': callingCode,
+                                        'currency': currency,
                                     });
                                 }
                             }
