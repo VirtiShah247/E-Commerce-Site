@@ -4,6 +4,8 @@ import landingPage2 from "../assets/landing-page-2.jpg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export const LandingPage = () => {
     const [landingPages, setLandingPages] = useState([{
@@ -50,9 +52,7 @@ export const LandingPage = () => {
                         landingPages.map(landingPage =>
                             <div key={landingPage.id} className="w-full">
                                 {
-                                    landingPage.loading === true ? <div className="h-[600px] bg-slate-300">
-                                        Loading....
-                                    </div> :
+                                    landingPage.loading === true ? <Skeleton height={400}/> :
                                         <img src={landingPage.imageLink} alt="landing-page" className="w-full h-auto max-h-[600px]" />
                                 }
                             </div>)
