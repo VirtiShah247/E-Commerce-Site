@@ -53,7 +53,7 @@ h6 {
 }
 
 .slick-dots li button::before {
-  font-size: small;
+  font-size: 15px;
 }
 
 .slick-dots li.slick-active button::before {

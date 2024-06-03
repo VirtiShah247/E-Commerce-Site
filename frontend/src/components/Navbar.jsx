@@ -120,7 +120,26 @@ export const Navbar = () => {
               </nav>
           }
         </div>
-        <MobileSidebar openMenu={openMenu} handleOpenMenu={handleMenu} />
+        <MobileSidebar openMenu={openMenu} handleOpenMenu={handleMenu}>
+          <div>
+            <Link to="/men" className="hover:opacity-50">
+              <div>Men</div>
+            </Link>
+            <Link to="/women" className="hover:opacity-50">
+              <div>Women</div>
+            </Link>
+            <Link to="/kids" className="hover:opacity-50">
+              <div>Kids</div>
+            </Link>
+            <Link to="/beauty" className="hover:opacity-50">
+              <div>Beauty</div>
+            </Link>
+          </div>
+          <hr className="border-t-2 border-gray-400 text-opacity-100 my-2" />
+          <div>
+            <ProfileItems />
+          </div>
+        </MobileSidebar>
       </header>
     </Fragment>
   )
